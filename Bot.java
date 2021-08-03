@@ -9,13 +9,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         super(name);
     }
 
-    public static String[] stringArrayConversion(Object o) {
-        Object[] arr = ((String) o).split(" | ");
-        String[] result = new String[arr.length];
-        System.arraycopy(arr, 0, result, 0, arr.length);
-        return result;
-    }
-
     public static void collectData() {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("data.txt"));
@@ -33,13 +26,13 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 a.setFiller(Boolean.parseBoolean((String)data[12]));
 
                 // setting Anime a values that are arrays (int or String)
-                String[] malArray = stringArrayConversion(data[6]);
+                String[] malArray = ((String) data[6]).split(" - ");
                 a.setMalRating(malArray);
-                String[] genreArray = stringArrayConversion(data[8]);
+                String[] genreArray = ((String) data[8]).split(" - ");
                 a.setMainGenre(genreArray);
-                String[] subgenreArray = stringArrayConversion(data[9]);
+                String[] subgenreArray = ((String) data[9]).split(" - ");
                 a.setSubgenres(subgenreArray);
-                String[] episodesArray = stringArrayConversion(data[3]);
+                String[] episodesArray = ((String) data[3]).split(" - ");
                 a.setNumOfEpisodes(episodesArray);
 
 
@@ -58,10 +51,19 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         collectData();
         for (int i = 0; i < list.size(); i++) {
             System.out.printf("Name: %s\n", list.get(i).getName());
-            System.out.printf("Jap Name: %s\n", list.get(i).getJapName());
+            System.out.printf("Japanese Name Name: %s\n", list.get(i).getJapName());
             System.out.printf("Number of Seasons: %d\n", list.get(i).getNumOfSeasons());
             System.out.printf("Number of Episodes: %s\n", Arrays.toString(list.get(i).getNumOfEpisodes()));
-
+            System.out.printf("Number of Movies: %d\n", list.get(i).getNumOfMovies());
+            System.out.printf("Number of OVAs: %d\n", list.get(i).getNumOfOVAs());
+            System.out.printf("MAL Rating: %s\n", Arrays.toString(list.get(i).getMalRating()));
+            System.out.printf("Personal Enjoyment Rating: %s\n", list.get(i).getSeriesEnjoymentRating());
+            System.out.printf("Main Genres: %s\n", Arrays.toString(list.get(i).getMainGenre()));
+            System.out.printf("Subgenres: %s\n", Arrays.toString(list.get(i).getSubgenres()));
+            System.out.printf("Airing: %s\n", list.get(i).getAiring());
+            System.out.printf("Completed: %s\n", list.get(i).getCompletedSeries());
+            System.out.printf("Filler: %s\n", list.get(i).getFiller());
+            System.out.println("\n\n");
         }
     }
 }
