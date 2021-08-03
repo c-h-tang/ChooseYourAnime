@@ -14,6 +14,7 @@ public class Anime { // anime Objects that contain basic information about anime
     private boolean filler; // whether the series contains filler, or non-canon, episodes
 
     public Anime (String name) {
+        super();
         this.name = name;
         this.japName = null;
         this.numOfSeasons = 0;
