@@ -34,40 +34,80 @@ public class Anime { // anime Objects that contain basic information about anime
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getJapName() {
         return japName;
+    }
+
+    public void setJapName(String japName) {
+        this.japName = japName;
     }
 
     public int getNumOfSeasons() {
         return numOfSeasons;
     }
 
+    public void setNumOfSeasons(int numOfSeasons) {
+        this.numOfSeasons = numOfSeasons;
+    }
+
     public int[] getNumOfEpisodes() {
         return numOfEpisodes;
+    }
+
+    public void setNumOfEpisodes(int[] numOfEpisodes) {
+        this.numOfEpisodes = numOfEpisodes;
     }
 
     public int getNumOfMovies() {
         return numOfMovies;
     }
 
+    public void setNumOfMovies(int numOfMovies) {
+        this.numOfMovies = numOfMovies;
+    }
+
     public int getNumOfOVAs() {
         return numOfOVAs;
+    }
+
+    public void setNumOfOVAs(int numOfOVAs) {
+        this.numOfOVAs = numOfOVAs;
     }
 
     public String[] getMalRating() {
         return malRating;
     }
 
+    public void setMalRating(String[] malRating) {
+        this.malRating = malRating;
+    }
+
     public String getSeriesEnjoymentRating() {
         return seriesEnjoymentRating;
+    }
+
+    public void setSeriesEnjoymentRating(String seriesEnjoymentRating) {
+        this.seriesEnjoymentRating = seriesEnjoymentRating;
     }
 
     public String[] getMainGenre() {
         return mainGenre;
     }
 
+    public void setMainGenre(String[] mainGenre) {
+        this.mainGenre = mainGenre;
+    }
+
     public String[] getSubgenres() {
         return subgenres;
+    }
+
+    public void setSubgenres(String[] subgenres) {
+        this.subgenres = subgenres;
     }
 
     public boolean getAiring() {
