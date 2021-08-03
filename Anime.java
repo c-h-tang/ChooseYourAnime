@@ -2,7 +2,7 @@ public class Anime { // anime Objects that contain basic information about anime
     private String name; // the English name of the anime series
     private String japName; // the Japanese name, written in Romaji, of the anime series
     private int numOfSeasons; // number of seasons of the series
-    private int[] numOfEpisodes; // number of episodes by season of a series
+    private String[] numOfEpisodes; // number of episodes by season of a series
     private int numOfMovies; // total number of movies from the series
     private int numOfOVAs; // number of OVAs, or Original Video Animations, of the series
     private String[] malRating; // ratings per season from MAL, the largest anime database and community
@@ -54,11 +54,11 @@ public class Anime { // anime Objects that contain basic information about anime
         this.numOfSeasons = numOfSeasons;
     }
 
-    public int[] getNumOfEpisodes() {
+    public String[] getNumOfEpisodes() {
         return numOfEpisodes;
     }
 
-    public void setNumOfEpisodes(int[] numOfEpisodes) {
+    public void setNumOfEpisodes(String[] numOfEpisodes) {
         this.numOfEpisodes = numOfEpisodes;
     }
 
