@@ -1,0 +1,1 @@
+Attack on Titan, Shingeki no Kyojin, 4, {25, 12, {12, 10}, 16}, 0, 2, {8.51, 8.49, {8.63, 9.10}, 8.96}, 10, {Action, Shounen, Military}, {Drama, Mystery, Fantasy, Super Power}, F, F, F
