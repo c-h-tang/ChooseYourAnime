@@ -12,8 +12,9 @@ public class Anime { // anime Objects that contain basic information about anime
     private boolean airing; // whether the anime is currently airing (Summer 2021)
     private boolean completedSeries; // whether this series has been completed in comparison to its manga counterpart
     private boolean filler; // whether the series contains filler, or non-canon, episodes
+    // private int whenToDrop; // denotes at what episode the anime should be dropped if the user doesn't like it so far (based on personal experience)
 
-    public Anime (String name) {
+    public Anime (String name) { // creates an Anime Object with just a name, other data is left blank and will be filled after Object creation
         super();
         this.name = name;
         this.japName = null;
@@ -28,6 +29,7 @@ public class Anime { // anime Objects that contain basic information about anime
         this.airing = false;
         this.completedSeries = false;
         this.filler = false;
+        // this.whenToDrop = 0;
     }
 
     public String getName() {
@@ -90,9 +92,7 @@ public class Anime { // anime Objects that contain basic information about anime
         return seriesEnjoymentRating;
     }
 
-    public void setSeriesEnjoymentRating(String seriesEnjoymentRating) {
-        this.seriesEnjoymentRating = seriesEnjoymentRating;
-    }
+    public void setSeriesEnjoymentRating(String seriesEnjoymentRating) { this.seriesEnjoymentRating = seriesEnjoymentRating; }
 
     public String[] getMainGenre() {
         return mainGenre;

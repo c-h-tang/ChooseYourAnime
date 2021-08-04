@@ -35,14 +35,12 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 String[] episodesArray = ((String) data[3]).split(" - ");
                 a.setNumOfEpisodes(episodesArray);
 
-
                 list.add(a);
                 line = bfr.readLine();
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
+        //catch (ArrayIndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
         }
     }

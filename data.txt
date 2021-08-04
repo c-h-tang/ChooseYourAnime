@@ -14,3 +14,48 @@ Naruto, Naruto, 3, 220 - 500 - 209, 11, 14, 7.94 - 8.20 - 5.82, 8.5, Adventure -
 Haikyu!!, Haikyu!!, 5, 25 - 25 - 10 - 13 - 12, 0, 2, 8.48 - 8.68 - 8.82 - 8.36 - 8.54, 9.5, Sports - Comedy - Shounen, Drama - School, false, false, false
 Parasyte, Parasyte, 1, 24, 0, 0, 8.37, 8.3, Horror - Psychological - Sci-Fi, Drama - Seinen - Action, false, true, false
 Hyouka, Hyouka, 1, 22, 0, 1, 8.12, 8.5, Mystery, School, Slice of Life, , false, false, false
+Cowboy Bebop, Cowboy Bebop, 1, 26, 1, 0, 8.77, 9.5, Adventure - Comedy - Space, Action - Drama - Sci-Fi, false, true, false
+That Time I got Reincarnated as a Slime, TenSura, 2, 24 - 12 12, 0, 5, 8.10 - 8.41 8.42, 8.2, Magic - Adventure - Fantasy, Action - Comedy - Demons, true, false, false
+My Hero Academia, Boku no Hero Academia, 5, 13 - 25 - 25 - 25 - 25, 3, 2, 8.01 - 8.23 - 8.16 - 8.01 - 7.55, 8.5, Action - School - Super Power, Comedy - Shounen, true, false, false
+Fairy Tail, Fairy Tail, 3, 175 - 102 - 51, 2, 9, 7.61, 7.68, 7.53, 8.0, Shounen - Magic - Action, Adventure - Fantasy - Comedy, false, true, true
+Bleach, BLEACH, 1, 366, 5, 2, 7.81, 8.10, Action - Adventure - Comedy, Super Power - Shounen - Supernatural, false, false, true
+Wotakoi, Wotaku ni Koi wa Muzukashii, 1, 11, 0, 3, 7.95, 9.3, Slide of Life - Comedy - Romance, , false, false, false
+Oregairu, Yahari Ore no Seishun Love Comedy wa Machigatteiru, 3, 13 - 13 - 12, 0, 2, 8.04 - 8.25 - 8.41, 9.5, Slice of Life - Romance - Drama, School - Comedy, false, true, false
+Sword Art Online,
+Toradora,
+The Devil is a Part-timer!, Hataraku Maou-Sama!,
+Rascal Does Not Dream of Bunny Girl Senpai
+Tokyo Ghoul,
+Kaguya-sama: Love is War,
+Maid Sama!, Kaichou wa Maid-sama!,
+Nisekoi,
+My Little Monster,
+ReLIFE,
+Kokoro Connect
+Spice and Wolf,
+No Game No Life
+Tsurezure Children,
+Saekano: How to Raise a Boring Girlfriend,
+Don't Toy with Me, Miss Nagatoro,
+TONIKAWA: Over the Moon For You
+Fullmetal Alchemist: Brotherhood,
+One Punch Man,
+Hunter x Hunter,
+Noragami,
+Future Diary, Mirrai Nikki
+Akame ga Kill
+Assassination Classroom,
+Mob Pyscho 100,
+Psycho-Pass,
+The Rising of Shield Hero
+Black Clover
+Deadman Wonderland
+Bungoi Stray Dogs
+Fire Force
+Dororo
+KonoSuba: God's Blessing on This Wonderful World!, Kono Subarashii Sekai ni Shukufuku wo!, 2, 10, 10, 1, 2, 8.14 - 8.29, 8.6, Parody - Comedy - Adventure, Supernatural - Fantasy, false, false, false
+Dr. Stone, Sr. Stone, 2, 24 - 11, 0, 0, 8.31 - 8.2, 8.8, Shounen - Sci-Fi - Adventure, Comedy, false, false, false
+Made in Abyss, Made in Abyss, 1, 13, 3, 0, 8.71, 8.3, Adventure - Mystery - Fantasy, Sci-Fi - Drama, false, false, false
+Grimgar: Ashes and Illusions,
+To Your Eternity, Fumetsu no Anata e, 1, 20, 0, 0, 8.58, 8.2, Adventure - Shounen - Drama, Supernatural, true, false, false
+Tokyo Revengers, Tokyo Revengers, 1, 24, 0, 0, 8.28, 8.7, Action - Drama - School, Shounen - Supernatural, true, false, false
