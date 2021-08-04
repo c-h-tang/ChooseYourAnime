@@ -1,1 +1,13 @@
 Attack on Titan, Shingeki no Kyojin, 4, 25 - 12 - 12 10 - 16, 0, 2, 8.51 - 8.49 - 8.63  9.10 - 8.96, 10, Action - Shounen - Military, Drama - Mystery - Fantasy - Super Power, F, F, F
+One Piece, ONE PIECE, 1, 985+, 17, 4, 8.57, 10, Action - Adventure - Comedy, Super Power - Drama - Fantasy - Shounen, true, false, true
+Jujutsu Kaisen / Sorcery Fight, Jujutsu Kaisen, 1, 24, 1, 0, 8.76, 10, Action - Demons - Supernatural, School - Shounen, false, false, false
+Your Lie in April, Shigatsu wa Kimi no Uso, 1, 22, 0, 1, 8.70, 10, Music - Drama - Romance, School - Shounen, false, true, false
+March Comes in Like a Lion, San-gatsu no Lion, 2, 22 - 22, 0, 0, 8.41 - 8.98, 9.5, Drama - Game - Seinen, Slice of Life, false, false, false
+Demon Slayer, Kimetsu no Yaiba, 1, 26, 1, 0, 8.59, 8.5, Action - Demons - Shounen, Supernatural - Historical, false, false, false
+Violet Evergarden, Violet Evergarden, 1, 13, 2, 1, 8.65, 9.2, Slice of Life - Drama - Fantasy, , false, true, false
+Golden Time, Golden Time, 1, 24, 0, 0, 7.77, 8.0, Drama - Romance - Comedy, , false, true, false
+Grand Blue Dreaming, Grand Blue, 1, 12, 0, 0, 8.42, 10, Comedy - Slice of Life - Seinen, , false, false, false
+Vinland Saga, Vinland Saga, 1, 24, 0, 0, 8.72, 9.1, Action - Adventure - Seinen, Historical - Drama, false, false, false
+Dragon Ball, Dragon Ball, 6, 153 - 291 - 64 - 97 - 61 - 131, 23, 3, 7.97 - 8.15 - 6.46 - 7.71 - 7.67 - 7.40, 8.0, Action - Fantasy - Adventure, Martial Arts - Super Power - Comedy - Shounen, false, false, true
+Death Note, Death Note, 1, 37, 0, 2, 8.63, 9.5, Psychological - Thriller - Supernatural, Mystery - Police - Shounen, false, true, false
+Naruto, Naruto, 3, 220 - 500 - 209, 11, 14, 7.94 - 8.20 - 5.82, 8.5, Adventure - Martial Arts - Shounen, Action - Comedy - Super Power, true, false, true
