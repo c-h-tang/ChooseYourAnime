@@ -11,3 +11,6 @@ Vinland Saga, Vinland Saga, 1, 24, 0, 0, 8.72, 9.1, Action - Adventure - Seinen,
 Dragon Ball, Dragon Ball, 6, 153 - 291 - 64 - 97 - 61 - 131, 23, 3, 7.97 - 8.15 - 6.46 - 7.71 - 7.67 - 7.40, 8.0, Action - Fantasy - Adventure, Martial Arts - Super Power - Comedy - Shounen, false, false, true
 Death Note, Death Note, 1, 37, 0, 2, 8.63, 9.5, Psychological - Thriller - Supernatural, Mystery - Police - Shounen, false, true, false
 Naruto, Naruto, 3, 220 - 500 - 209, 11, 14, 7.94 - 8.20 - 5.82, 8.5, Adventure - Martial Arts - Shounen, Action - Comedy - Super Power, true, false, true
+Haikyu!!, Haikyu!!, 5, 25 - 25 - 10 - 13 - 12, 0, 2, 8.48 - 8.68 - 8.82 - 8.36 - 8.54, 9.5, Sports - Comedy - Shounen, Drama - School, false, false, false
+Parasyte, Parasyte, 1, 24, 0, 0, 8.37, 8.3, Horror - Psychological - Sci-Fi, Drama - Seinen - Action, false, true, false
+Hyouka, Hyouka, 1, 22, 0, 1, 8.12, 8.5, Mystery, School, Slice of Life, , false, false, false
