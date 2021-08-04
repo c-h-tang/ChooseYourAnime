@@ -40,7 +40,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
 
         } catch (IOException e) {
-        //catch (ArrayIndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
         }
     }
