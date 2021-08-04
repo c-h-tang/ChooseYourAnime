@@ -1,12 +1,34 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.ImageIcon;
 
 public class Bot extends Anime { // where the GUI is created and the user interacts with the program
     private static ArrayList<Anime> list = new ArrayList<>(); // list of Anime objects
 
     public Bot (String name) {
         super(name);
+    }
+
+    public static void test() {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("Name: %s\n", list.get(i).getName());
+            System.out.printf("Japanese Name Name: %s\n", list.get(i).getJapName());
+            System.out.printf("Number of Seasons: %d\n", list.get(i).getNumOfSeasons());
+            System.out.printf("Number of Episodes: %s\n", Arrays.toString(list.get(i).getNumOfEpisodes()));
+            System.out.printf("Number of Movies: %d\n", list.get(i).getNumOfMovies());
+            System.out.printf("Number of OVAs: %d\n", list.get(i).getNumOfOVAs());
+            System.out.printf("MAL Rating: %s\n", Arrays.toString(list.get(i).getMalRating()));
+            System.out.printf("Personal Enjoyment Rating: %s\n", list.get(i).getSeriesEnjoymentRating());
+            System.out.printf("Main Genres: %s\n", Arrays.toString(list.get(i).getMainGenre()));
+            System.out.printf("Subgenres: %s\n", Arrays.toString(list.get(i).getSubgenres()));
+            System.out.printf("Airing: %s\n", list.get(i).getAiring());
+            System.out.printf("Completed: %s\n", list.get(i).getCompletedSeries());
+            System.out.printf("Filler: %s\n", list.get(i).getFiller());
+            System.out.println("\n\n");
+        }
     }
 
     public static void collectData() {
@@ -46,21 +68,16 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
     public static void main(String[] args) {
         collectData();
-        for (int i = 0; i < list.size(); i++) {
-            System.out.printf("Name: %s\n", list.get(i).getName());
-            System.out.printf("Japanese Name Name: %s\n", list.get(i).getJapName());
-            System.out.printf("Number of Seasons: %d\n", list.get(i).getNumOfSeasons());
-            System.out.printf("Number of Episodes: %s\n", Arrays.toString(list.get(i).getNumOfEpisodes()));
-            System.out.printf("Number of Movies: %d\n", list.get(i).getNumOfMovies());
-            System.out.printf("Number of OVAs: %d\n", list.get(i).getNumOfOVAs());
-            System.out.printf("MAL Rating: %s\n", Arrays.toString(list.get(i).getMalRating()));
-            System.out.printf("Personal Enjoyment Rating: %s\n", list.get(i).getSeriesEnjoymentRating());
-            System.out.printf("Main Genres: %s\n", Arrays.toString(list.get(i).getMainGenre()));
-            System.out.printf("Subgenres: %s\n", Arrays.toString(list.get(i).getSubgenres()));
-            System.out.printf("Airing: %s\n", list.get(i).getAiring());
-            System.out.printf("Completed: %s\n", list.get(i).getCompletedSeries());
-            System.out.printf("Filler: %s\n", list.get(i).getFiller());
-            System.out.println("\n\n");
-        }
+        //test();
+
+        // initializes frame for opening page //
+        JFrame openingPage = new JFrame("Choose Your Anime");
+        openingPage.setSize(750, 500);
+        openingPage.setVisible(true);
+        openingPage.setLocationRelativeTo(null);
+        openingPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container contents = openingPage.getContentPane();
+        contents.setLayout(new BorderLayout());
+        openingPage.setIconImage(new ImageIcon("Spike.jpg").getImage());
     }
 }
