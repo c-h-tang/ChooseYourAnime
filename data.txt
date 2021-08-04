@@ -21,36 +21,37 @@ Fairy Tail, Fairy Tail, 3, 175 - 102 - 51, 2, 9, 7.61 - 7.68 - 7.53, 8.0, Shoune
 Bleach, BLEACH, 1, 366, 5, 2, 7.81, 8.10, Action - Adventure - Comedy, Super Power - Shounen - Supernatural, false, false, true
 Wotakoi, Wotaku ni Koi wa Muzukashii, 1, 11, 0, 3, 7.95, 9.3, Slide of Life - Comedy - Romance, , false, false, false
 Oregairu, Yahari Ore no Seishun Love Comedy wa Machigatteiru, 3, 13 - 13 - 12, 0, 2, 8.04 - 8.25 - 8.41, 9.5, Slice of Life - Romance - Drama, School - Comedy, false, true, false
-Sword Art Online, 4, 25 - 24 - 24 - 12 11, 2, 1, 7.21 - 6.73 - 7.55 - 7.59 - 7.43, 7.1, Action - Game - Adventure, Romance - Fantasy, false, false, false
+Sword Art Online, Sword Art Online, 4, 25 - 24 - 24 - 12 11, 2, 1, 7.21 - 6.73 - 7.55 - 7.59 - 7.43, 7.1, Action - Game - Adventure, Romance - Fantasy, false, false, false
 Toradora, Toradora, 1, 25, 0, 1, 8.17, 8.6, Slice of Life- Comedy - Romance, School, false, true, false
 The Devil is a Part-Timer!, Hataraku Maou-Sama!, 1, 13, 0, 0, 7.80, 8.4, Comedy - Demons - Supernatural, Romance - Fantasy, false, false, false
 Rascal Does Not Dream of Bunny Girl Senpai, Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai, 1, 13, 1, 0, 8.32, 9.3, Comedy - Supernatural - Drama, School - Romance, false, false, false
-Tokyo Ghoul,
-Kaguya-sama: Love is War,
-Maid Sama!, Kaichou wa Maid-sama!,
-Nisekoi,
-My Little Monster,
+Tokyo Ghoul, Tokyo Ghoul, 4, 12 - 12 - 12 - 12, 0, 2, 7.8 - 7.04 - 6.43 - 6.37, 6.6, Action - Horror - Drama, Psychological - Seinen, Supernatural - Mystery, false, true, false
+Kaguya-sama: Love is War, Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen, 2, 12 - 12, 0, 3, 8.41 - 8.68, 9.1, Comedy - Psychological - Romance, School - Seinen, false, false, false
+Maid Sama!, Kaichou wa Maid-sama!, 1, 26, 0, 2, 8.03, 8.2, Comedy - Romance - School, Shoujo, false, true, false
+Nisekoi: False Love, Nisekoi, 2, 20 - 12, 0, 3, 7.62 - 7.37, 8.4, Harem - Comedy - Romance, Shounen - School, false, false, false
+My Little Monster, Tonari no Kaibutsu-kun, 1, 13, 0, 1, 7.51, 7.3, Slice of Life - Comedy - Romance, School - Shoujo, false, true, false
 ReLIFE, ReLIFE, 1, 13, 0, 4, 8.01, 8.4, Slice of Life - Romance - School, , false, true, false
-Kokoro Connect
-Spice and Wolf,
-No Game No Life
-Tsurezure Children,
-Saekano: How to Raise a Boring Girlfriend,
-Don't Toy with Me, Miss Nagatoro,
-TONIKAWA: Over the Moon For You
-Fullmetal Alchemist: Brotherhood,
-One Punch Man,
-Hunter x Hunter,
-Noragami,
+Kokoro Connect, Kokoro Connect, 1, 13, 0, 4, 7.8, 8.3, Slice of Life - Comedy - Supernatural, Drama - Romance - School, false, true, false
+Spice and Wolf, Ookami to Koushinryou, 2, 13 - 12, 0, 1, 8.25 - 8.35, 8.5, Adventure - Historical - Romance, Fantasy, false, false, false
+No Game No Life, No Game No Life, 1, 12, 1, 0, 8.15, 8.8, Game - Adventure - Comedy, Supernatural - Ecchi - Fantasy, false, false, false
+Tsuredure Children, Tsurezure Children, 1, 12, 0, 0,  7.62, 8.2, Comedy - Romance - School, Shounen, false, false, false
+Saekano: How to Raise a Boring Girlfriend, Saenai Heroine no Sodatekata, 2, 12 - 11, 1, 1, 7.51 - 7.79, 7.8, Comedy - Romance - Harem, School - Ecchi, false, true, false
+Don't Toy with Me Miss Nagatoro, Ijiranaide Nagatoro-san, 1, 12, 0, 0, 7.5, 7.1, Slice of Life - Romance - Comedy, , false, false, false
+TONIKAWA: Over the Moon For You, Tonikaku Kawaii, 1, 12, 0, 0, 7.92, 8.2, Comedy - Romance - Shounen, , false, false, false
+Fullmetal Alchemist: Brotherhood, Fullmental Alchemist: Brotherhood, 1, 64, 2, 5, 9.16, 10, Action - Military - Adventure, Comedy - Drama - Magic - Fantasy - Shounen, false, true, false
+One Punch Man, One Punch Man, 2, 12 - 12, 0, 6, 2, 8.53 - 7.42, 8.2, Action - Sci-Fi - Comedy, Parody - Super Power - Supernatural, false, false, false
+Hunter x Hunter, HUNTER x HUNTER, 1, 148, 2, 3, 9.07, 9.0, Action - Adventure - Fantasy, Shounen - Super Power, false, false, true
+Noragami, Noragami, 2, 12 - 13, 0, 4, 7.98 - 8.19, 7.6, Action - Comedy - Supernatural, Adventure - Shounen, false, false, false
 The Future Diary, Mirrai Nikki, 1, 26, 0, 2, 7.49, 7.8, Action - Mystery - Psychological, Supernatural - Thriller -Shounen, false, true, false
-Akame ga Kill
-Assassination Classroom,
-Mob Pyscho 100,
-Psycho-Pass,
+Akame ga Kill, Akame ga Kiru!, 1, 24, 0, 0, 7.49, 7.8, Action - Adventure - Drama, Fantasy - Shounen, false, true, false
+Assassination Classroom, Ansatsu Kyoushitsu, 2, 22 - 25, 0, 2, 8.11 - 8.52, 8.4, Action - Comedy - School, Shounen, false, true, false
+Classroom of the Elite, Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e, 1, 12, 0, 0, 7.84, 8.4, Pyschological - Drama - School, , false, false, false
+Mob Pyscho 100, Mob Psycho 100, 2, 12 - 13, 0, 1, 8.48 - 8.82, 8.7, Action - Slice of Life - Comedy, Supernatural, false, false, false
+Psycho-Pass, Pyscho Pass, 3, 22 - 11 - 8, 5, 0, 8.36 - 7.41 - 7.5, 7.7, Action - Schi-Fi - Police, Psychological - Thriller, false, false, false
 The Rising of Shield Hero, Tate no Yuusha no Nariagari, 1, 25, 0, 0, 8.01, 8.6, Action - ADventure - Drama, Fantasy, false, false, false
 Black Clover, Black Clover, 1, 170, 0, 2, 8.02, 8.2, Action - Magic - Comedy, Fantasy - Shounen, false, false, true
 Deadman Wonderland, Deadman Wonderland, 1, 12, 0, 1, 7.19, 7.0, Action - Horro - Sci-Fi, Shounen - Supernatural, false, false, false
-Bungou Stray Dogs
+Bungo Stray Dogs, Bungou Stray Dogs, 3, 12 - 12 - 12, 1, 1, 7.8 - 8.19 - 8.2, 8.0, Action - Mystery - Seinen, Super Power - Supernatural, false, false, false
 Fire Force, Enen no Shouboutai, 2, 24 - 24, 0, 0, 7.67 - 7.75, 7.5, Action - Supernatural - Shounen, , false, false, false
 Dororo, Dororo, 1, 24, 0, 0, 8.21, 7.7, Historical - Samurai - Demons, Action - Adventure - Shounen - Supernatural, false, true, false
 KonoSuba: God's Blessing on This Wonderful World!, Kono Subarashii Sekai ni Shukufuku wo!, 2, 10, 10, 1, 2, 8.14 - 8.29, 8.6, Parody - Comedy - Adventure, Supernatural - Fantasy, false, false, false
