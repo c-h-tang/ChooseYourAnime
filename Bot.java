@@ -1,9 +1,9 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.swing.ImageIcon;
 
 public class Bot extends Anime { // where the GUI is created and the user interacts with the program
     private static ArrayList<Anime> list = new ArrayList<>(); // list of Anime objects
@@ -39,9 +39,9 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 Object[] data = line.split(", ");
                 Anime a = new Anime((String) data[0]);
                 a.setJapName((String) data[1]);
-                a.setNumOfSeasons(Integer.valueOf((String)data[2]));
-                a.setNumOfMovies(Integer.valueOf((String)data[4]));
-                a.setNumOfOVAs(Integer.valueOf((String)data[5]));
+                a.setNumOfSeasons(Integer.parseInt((String)data[2]));
+                a.setNumOfMovies(Integer.parseInt((String)data[4]));
+                a.setNumOfOVAs(Integer.parseInt((String)data[5]));
                 a.setSeriesEnjoymentRating((String) data[7]);
                 a.setAiring(Boolean.parseBoolean((String)data[10]));
                 a.setCompletedSeries(Boolean.parseBoolean((String)data[11]));
@@ -72,12 +72,35 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         // initializes frame for opening page //
         JFrame openingPage = new JFrame("Choose Your Anime");
-        openingPage.setSize(750, 500);
+        openingPage.setSize(600 , 550);
         openingPage.setVisible(true);
         openingPage.setLocationRelativeTo(null);
         openingPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        openingPage.setResizable(false);
         Container contents = openingPage.getContentPane();
         contents.setLayout(new BorderLayout());
         openingPage.setIconImage(new ImageIcon("Spike.jpg").getImage());
+
+        JLabel welcome = new JLabel("Welcome to Choose Your Anime!");
+        welcome.setFont(new Font("Serif", Font.PLAIN, 20));
+        welcome.setForeground(Color.WHITE);
+
+        JPanel top = new JPanel();
+        top.setBackground(new Color(50, 50, 250));
+        top.setPreferredSize(new Dimension(600, 220));
+        top.add(welcome);
+
+        JPanel bottom = new JPanel();
+        bottom.setPreferredSize(new Dimension(600, 330));
+        bottom.setBackground(Color.WHITE);
+
+        openingPage.add(top, BorderLayout.NORTH);
+        openingPage.add(bottom, BorderLayout.SOUTH);
+        contents.add(top, BorderLayout.NORTH);
+        contents.add(bottom, BorderLayout.SOUTH);
+
+        openingPage.revalidate();
+
+
     }
 }
