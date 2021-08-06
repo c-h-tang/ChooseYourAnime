@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -77,7 +78,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
     public static void main(String[] args) {
         collectData();
-        //test();
+        test();
 
         // initializes frame for opening page //
         JFrame openingPage = new JFrame("Choose Your Anime");
@@ -157,15 +158,37 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 contents2.setLayout(new BorderLayout());
                 searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
 
-                JButton backButton = new JButton("Previous");
+                JButton backButton = new JButton("Back to Home");
+                JButton mal = new JButton("MAL");
+                JButton wcostream = new JButton("Watch Subbed");
 
                 backButton.addActionListener(e2 -> {
                     searchResults.dispose();
                     openingPage.setVisible(true);
                 });
 
+                mal.addActionListener(e2 -> {
+                    try {
+                        URI uri= new URI(list.get(0).getMALURL());
+                        java.awt.Desktop.getDesktop().browse(uri);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
+
+                wcostream.addActionListener(e2 -> {
+                    try {
+                        URI uri= new URI(list.get(0).getGogoanimeURL());
+                        java.awt.Desktop.getDesktop().browse(uri);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
+
                 JPanel previousPanel = new JPanel();
                 previousPanel.add(backButton, BorderLayout.SOUTH);
+                previousPanel.add(mal, BorderLayout.SOUTH);
+                previousPanel.add(wcostream, BorderLayout.SOUTH);
                 contents2.add(previousPanel, BorderLayout.CENTER);
             }
 
