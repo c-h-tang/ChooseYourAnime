@@ -31,6 +31,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             System.out.printf("Airing: %s\n", list.get(i).getAiring());
             System.out.printf("Completed: %s\n", list.get(i).getCompletedSeries());
             System.out.printf("Filler: %s\n", list.get(i).getFiller());
+            System.out.printf("MAL Link: %s\n", list.get(i).getMALURL());
+            System.out.printf("Gogoanime Link: %s\n", list.get(i).getGogoanimeURL());
             System.out.println("\n\n");
         }
     }
@@ -50,6 +52,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 a.setAiring(Boolean.parseBoolean((String) data[10]));
                 a.setCompletedSeries(Boolean.parseBoolean((String) data[11]));
                 a.setFiller(Boolean.parseBoolean((String) data[12]));
+                a.setMALURL((String) data[13]);
+                a.setGogoanimeURL((String) data[14]);
 
                 // setting Anime a values that are arrays (int or String)
                 String[] malArray = ((String) data[6]).split(" - ");
@@ -69,6 +73,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             e.printStackTrace();
         }
     }
+
 
     public static void main(String[] args) {
         collectData();
@@ -105,9 +110,19 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         searchFeature.add(searchInput, BorderLayout.CENTER);
         searchFeature.add(search, BorderLayout.EAST);
 
+        JButton randomize = new JButton("Randomize");
+        randomize.setPreferredSize(new Dimension(100, 100));
+        JButton customSearch = new JButton("Genre Search");
+        customSearch.setPreferredSize(new Dimension(100, 100));
+        JButton seeList = new JButton("See All");
+        seeList.setPreferredSize(new Dimension(100, 100));
+
         JPanel bottom = new JPanel();
         bottom.setPreferredSize(new Dimension(600, 330));
         bottom.setBackground(Color.WHITE);
+        bottom.add(randomize);
+        bottom.add(customSearch);
+        bottom.add(seeList);
 
         contents.add(top, BorderLayout.NORTH);
         contents.add(searchFeature, BorderLayout.CENTER);
@@ -117,19 +132,44 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         search.addActionListener(e -> {
             boolean inDatabase = false;
-            int index = -1;
+            ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
             for (Anime a: list) {
-                if (a.getName().toLowerCase().equals(String.valueOf(searchInput.getText().toLowerCase()))) {
-                    index = list.indexOf(a);
+                if (a.getName().toLowerCase().contains(String.valueOf(searchInput.getText().toLowerCase())) || a.getJapName().toLowerCase().contains(String.valueOf(searchInput.getText().toLowerCase()))) {
+                    matchingIndexes.add(list.indexOf(a));
+                    System.out.println("Added " + a.getName());
                     inDatabase = true;
                 }
             }
-            if (inDatabase == false) {
-                JOptionPane.showMessageDialog(null, "Anime not in the database!",
+            if (!inDatabase) {
+                JOptionPane.showMessageDialog(null, "'" + searchInput.getText() + "'" + " not in the database!  Please try again.",
                         "Database Error", JOptionPane.ERROR_MESSAGE);
                 searchInput.setText("");
+            } else {
+                openingPage.setVisible(false);
+                System.out.println("It worked");
+                JFrame searchResults = new JFrame("Search Results for " + "'" + searchInput.getText() + "'");
+                searchResults.setSize(600, 550);
+                searchResults.setVisible(true);
+                searchResults.setLocationRelativeTo(null);
+                searchResults.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                searchResults.setResizable(false);
+                Container contents2 = searchResults.getContentPane();
+                contents2.setLayout(new BorderLayout());
+                searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
+
+                JButton backButton = new JButton("Previous");
+
+                backButton.addActionListener(e2 -> {
+                    searchResults.dispose();
+                    openingPage.setVisible(true);
+                });
+
+                JPanel previousPanel = new JPanel();
+                previousPanel.add(backButton, BorderLayout.SOUTH);
+                contents2.add(previousPanel, BorderLayout.CENTER);
             }
 
         });
     }
+
 }
