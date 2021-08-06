@@ -8,8 +8,12 @@ import java.util.Arrays;
 public class Bot extends Anime { // where the GUI is created and the user interacts with the program
     private static ArrayList<Anime> list = new ArrayList<>(); // list of Anime objects
 
-    public Bot (String name) {
+    public Bot(String name) {
         super(name);
+    }
+
+    public static String toImageFormat(String imageName) {
+        return "Images/" + imageName;
     }
 
     public static void test() {
@@ -39,13 +43,13 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 Object[] data = line.split(", ");
                 Anime a = new Anime((String) data[0]);
                 a.setJapName((String) data[1]);
-                a.setNumOfSeasons(Integer.parseInt((String)data[2]));
-                a.setNumOfMovies(Integer.parseInt((String)data[4]));
-                a.setNumOfOVAs(Integer.parseInt((String)data[5]));
+                a.setNumOfSeasons(Integer.parseInt((String) data[2]));
+                a.setNumOfMovies(Integer.parseInt((String) data[4]));
+                a.setNumOfOVAs(Integer.parseInt((String) data[5]));
                 a.setSeriesEnjoymentRating((String) data[7]);
-                a.setAiring(Boolean.parseBoolean((String)data[10]));
-                a.setCompletedSeries(Boolean.parseBoolean((String)data[11]));
-                a.setFiller(Boolean.parseBoolean((String)data[12]));
+                a.setAiring(Boolean.parseBoolean((String) data[10]));
+                a.setCompletedSeries(Boolean.parseBoolean((String) data[11]));
+                a.setFiller(Boolean.parseBoolean((String) data[12]));
 
                 // setting Anime a values that are arrays (int or String)
                 String[] malArray = ((String) data[6]).split(" - ");
@@ -72,35 +76,60 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         // initializes frame for opening page //
         JFrame openingPage = new JFrame("Choose Your Anime");
-        openingPage.setSize(600 , 550);
+        openingPage.setSize(600, 550);
         openingPage.setVisible(true);
         openingPage.setLocationRelativeTo(null);
         openingPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         openingPage.setResizable(false);
         Container contents = openingPage.getContentPane();
         contents.setLayout(new BorderLayout());
-        openingPage.setIconImage(new ImageIcon("Spike.jpg").getImage());
+        openingPage.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
 
-        JLabel welcome = new JLabel("Welcome to Choose Your Anime!");
+
+        JLabel welcome = new JLabel("Welcome to Choose Your Anime!"); // welcome text
         welcome.setFont(new Font("Serif", Font.PLAIN, 20));
         welcome.setForeground(Color.WHITE);
 
+        JTextField searchInput = new JTextField("", 20);  // input if user chooses to search for a specific anime
+        JButton search = new JButton("Search");    // sign up button
+        searchInput.setColumns(28);
+
         JPanel top = new JPanel();
-        top.setBackground(new Color(50, 50, 250));
+        top.setBackground(new Color(0, 78, 250));
         top.setPreferredSize(new Dimension(600, 220));
         top.add(welcome);
+
+        JPanel searchFeature = new JPanel();
+        searchFeature.setBackground(new Color(0, 78, 250));
+        top.setPreferredSize(new Dimension(600, 70));
+        searchFeature.add(searchInput, BorderLayout.CENTER);
+        searchFeature.add(search, BorderLayout.EAST);
 
         JPanel bottom = new JPanel();
         bottom.setPreferredSize(new Dimension(600, 330));
         bottom.setBackground(Color.WHITE);
 
-        openingPage.add(top, BorderLayout.NORTH);
-        openingPage.add(bottom, BorderLayout.SOUTH);
         contents.add(top, BorderLayout.NORTH);
+        contents.add(searchFeature, BorderLayout.CENTER);
         contents.add(bottom, BorderLayout.SOUTH);
 
         openingPage.revalidate();
 
+        search.addActionListener(e -> {
+            boolean inDatabase = false;
+            int index = -1;
+            for (Anime a: list) {
+                if (a.getName().toLowerCase().equals(String.valueOf(searchInput.getText().toLowerCase()))) {
+                    index = list.indexOf(a);
+                    inDatabase = true;
+                }
+            }
+            if (inDatabase == false) {
+                JOptionPane.showMessageDialog(null, "Anime not in the database!",
+                        "Database Error", JOptionPane.ERROR_MESSAGE);
+                searchInput.setText("");
+            }
 
+        });
     }
 }
