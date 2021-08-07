@@ -166,18 +166,16 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                 JPanel middle = new JPanel();   // middle portion of frame
 
-                JTextArea testText = new JTextArea("Hello", 20, 50);
-                testText.setEditable(false);
-                testText.setLineWrap(true);
-                testText.setWrapStyleWord(true);
-                animePanel.add(testText);
-
                 JPanel first = new JPanel(new BorderLayout());
+                first.setPreferredSize(new Dimension(600, 300));
                 first.setBackground(Color.WHITE);
-                JLabel label = new JLabel();
-                label.setText("Attack on Titan");
+
                 ImageIcon icon = new ImageIcon("Images/AttackOnTitan.jpg");
+                JLabel label = new JLabel();
                 label.setIcon(icon);
+                label.setText("Attack on Titan");
+                label.setHorizontalTextPosition(JLabel.CENTER);
+                label.setVerticalTextPosition(JLabel.BOTTOM);
                 label.setVerticalAlignment(JLabel.TOP);
                 label.setHorizontalAlignment(JLabel.LEFT);
                 first.add(label);
