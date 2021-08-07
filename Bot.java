@@ -78,7 +78,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
     public static void main(String[] args) {
         collectData();
-        test();
+        //test();
 
         // initializes frame for opening page //
         JFrame openingPage = new JFrame("Choose Your Anime");
@@ -169,7 +169,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                 mal.addActionListener(e2 -> {
                     try {
-                        URI uri= new URI(list.get(0).getMALURL());
+                        URI uri= new URI(list.get(matchingIndexes.get(0)).getMALURL());
                         java.awt.Desktop.getDesktop().browse(uri);
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -178,18 +178,25 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                 wcostream.addActionListener(e2 -> {
                     try {
-                        URI uri= new URI(list.get(0).getGogoanimeURL());
+                        URI uri= new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
                         java.awt.Desktop.getDesktop().browse(uri);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                 });
 
+
+
                 JPanel previousPanel = new JPanel();
+                JScrollPane scroll = new JScrollPane(previousPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar for comments
                 previousPanel.add(backButton, BorderLayout.SOUTH);
                 previousPanel.add(mal, BorderLayout.SOUTH);
                 previousPanel.add(wcostream, BorderLayout.SOUTH);
-                contents2.add(previousPanel, BorderLayout.CENTER);
+          //      contents2.add(previousPanel, BorderLayout.CENTER);
+          //      searchResults.add(previousPanel, BorderLayout.CENTER);
+                contents2.add(previousPanel);
+                contents2.add(scroll);
             }
 
         });
