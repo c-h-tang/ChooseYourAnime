@@ -134,7 +134,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         search.addActionListener(e -> {
             boolean inDatabase = false;
             ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
-            for (Anime a: list) {
+            for (Anime a : list) {
                 if (a.getName().toLowerCase().contains(String.valueOf(searchInput.getText().toLowerCase())) || a.getJapName().toLowerCase().contains(String.valueOf(searchInput.getText().toLowerCase()))) {
                     matchingIndexes.add(list.indexOf(a));
                     System.out.println("Added " + a.getName());
@@ -149,6 +149,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 openingPage.setVisible(false);
                 System.out.println("It worked");
                 JFrame searchResults = new JFrame("Search Results for " + "'" + searchInput.getText() + "'");
+                searchInput.setText("");
                 searchResults.setSize(600, 550);
                 searchResults.setVisible(true);
                 searchResults.setLocationRelativeTo(null);
@@ -158,47 +159,59 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 contents2.setLayout(new BorderLayout());
                 searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
 
-                JButton backButton = new JButton("Back to Home");
-                JButton mal = new JButton("MAL");
-                JButton wcostream = new JButton("Watch Subbed");
+                GridLayout commentGrid = new GridLayout(0, 1,
+                        0, 1); // grid for holding comments
+
+                JPanel animePanel = new JPanel(commentGrid);  // panel for holding grid
+
+                JPanel middle = new JPanel();   // middle portion of frame
+
+                JButton backButton = new JButton("Back to Home");     // refresh button
+
+                middle.removeAll();
+                middle.add(animePanel);
+
+                JScrollPane scroll = new JScrollPane(middle, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar for comments
+                BorderLayout layout = (BorderLayout) contents2.getLayout();  // middle portion with comments
+                if (Arrays.asList(contents2.getComponents()).contains(
+                        layout.getLayoutComponent(BorderLayout.CENTER))) {
+                    contents2.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+                }
+                contents2.add(scroll, BorderLayout.CENTER);
+
+                JPanel upper = new JPanel();  // top portion of frame
+                upper.add(backButton, BorderLayout.WEST);
+                contents2.add(upper, BorderLayout.NORTH);
+                contents2.revalidate();
 
                 backButton.addActionListener(e2 -> {
                     searchResults.dispose();
                     openingPage.setVisible(true);
                 });
-
-                mal.addActionListener(e2 -> {
-                    try {
-                        URI uri= new URI(list.get(matchingIndexes.get(0)).getMALURL());
-                        java.awt.Desktop.getDesktop().browse(uri);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                });
-
-                wcostream.addActionListener(e2 -> {
-                    try {
-                        URI uri= new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
-                        java.awt.Desktop.getDesktop().browse(uri);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                });
-
-
-
-                JPanel previousPanel = new JPanel();
-                JScrollPane scroll = new JScrollPane(previousPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar for comments
-                previousPanel.add(backButton, BorderLayout.SOUTH);
-                previousPanel.add(mal, BorderLayout.SOUTH);
-                previousPanel.add(wcostream, BorderLayout.SOUTH);
-          //      contents2.add(previousPanel, BorderLayout.CENTER);
-          //      searchResults.add(previousPanel, BorderLayout.CENTER);
-                contents2.add(previousPanel);
-                contents2.add(scroll);
             }
 
+
+            JButton mal = new JButton("MAL");
+            JButton wcostream = new JButton("Watch Subbed");
+
+            mal.addActionListener(e2 -> {
+                try {
+                    URI uri = new URI(list.get(matchingIndexes.get(0)).getMALURL());
+                    java.awt.Desktop.getDesktop().browse(uri);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+            wcostream.addActionListener(e2 -> {
+                try {
+                    URI uri = new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
+                    java.awt.Desktop.getDesktop().browse(uri);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            });
         });
     }
 
