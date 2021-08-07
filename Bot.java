@@ -159,14 +159,58 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 contents2.setLayout(new BorderLayout());
                 searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
 
-                GridLayout commentGrid = new GridLayout(0, 1,
+                GridLayout animeGrid = new GridLayout(0, 1,
                         0, 1); // grid for holding comments
 
-                JPanel animePanel = new JPanel(commentGrid);  // panel for holding grid
+                JPanel animePanel = new JPanel(animeGrid);  // panel for holding grid
 
                 JPanel middle = new JPanel();   // middle portion of frame
 
-                JButton backButton = new JButton("Back to Home");     // refresh button
+                JTextArea testText = new JTextArea("Hello", 20, 50);
+                testText.setEditable(false);
+                testText.setLineWrap(true);
+                testText.setWrapStyleWord(true);
+                animePanel.add(testText);
+
+                JPanel first = new JPanel(new BorderLayout());
+                first.setBackground(Color.WHITE);
+                JLabel label = new JLabel();
+                label.setText("Attack on Titan");
+                ImageIcon icon = new ImageIcon("Images/AttackOnTitan.jpg");
+                label.setIcon(icon);
+                label.setVerticalAlignment(JLabel.TOP);
+                label.setHorizontalAlignment(JLabel.LEFT);
+                first.add(label);
+                animePanel.add(first);
+
+
+                // buttons
+                JButton backButton = new JButton("Back to Home");
+                JButton mal = new JButton("MAL");
+                JButton wcostream = new JButton("Watch Subbed");
+
+                backButton.addActionListener(e2 -> {
+                    searchResults.dispose();
+                    openingPage.setVisible(true);
+                });
+
+                mal.addActionListener(e2 -> {
+                    try {
+                        URI uri = new URI(list.get(matchingIndexes.get(0)).getMALURL());
+                        java.awt.Desktop.getDesktop().browse(uri);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
+
+                wcostream.addActionListener(e2 -> {
+                    try {
+                        URI uri = new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
+                        java.awt.Desktop.getDesktop().browse(uri);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
 
                 middle.removeAll();
                 middle.add(animePanel);
@@ -184,34 +228,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 upper.add(backButton, BorderLayout.WEST);
                 contents2.add(upper, BorderLayout.NORTH);
                 contents2.revalidate();
-
-                backButton.addActionListener(e2 -> {
-                    searchResults.dispose();
-                    openingPage.setVisible(true);
-                });
+                searchResults.revalidate();
             }
-
-
-            JButton mal = new JButton("MAL");
-            JButton wcostream = new JButton("Watch Subbed");
-
-            mal.addActionListener(e2 -> {
-                try {
-                    URI uri = new URI(list.get(matchingIndexes.get(0)).getMALURL());
-                    java.awt.Desktop.getDesktop().browse(uri);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            });
-
-            wcostream.addActionListener(e2 -> {
-                try {
-                    URI uri = new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
-                    java.awt.Desktop.getDesktop().browse(uri);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            });
         });
     }
 
