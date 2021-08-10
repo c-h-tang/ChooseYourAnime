@@ -166,10 +166,26 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                 JPanel middle = new JPanel();   // middle portion of frame
 
-                JPanel first = new JPanel(new BorderLayout());
+                for(int num: matchingIndexes) {
+                    JPanel first = new JPanel(new BorderLayout());
+                    first.setPreferredSize(new Dimension(600, 400));
+                    first.setBackground(Color.WHITE);
+                    ImageIcon icon = new ImageIcon("Images/AttackOnTitan.jpg");
+                    JLabel label = new JLabel();
+                    label.setIcon(icon);
+                    label.setText(String.format("<html>Number of Seasons: %s<br>Number of Episodes: %s<br>Number of Movies: %d<br>Number of OVAs: %d</html>",
+                            list.get(num).getNumOfSeasons(), Arrays.toString(list.get(num).getNumOfEpisodes()), list.get(num).getNumOfMovies(), list.get(num).getNumOfOVAs()));
+                    label.setHorizontalTextPosition(JLabel.CENTER);
+                    label.setVerticalTextPosition(JLabel.BOTTOM);
+                    label.setVerticalAlignment(JLabel.TOP);
+                    label.setHorizontalAlignment(JLabel.LEFT);
+                    first.add(label);
+                    animePanel.add(first);
+                }
+
+             /*   JPanel first = new JPanel(new BorderLayout());
                 first.setPreferredSize(new Dimension(600, 400));
                 first.setBackground(Color.WHITE);
-
                 ImageIcon icon = new ImageIcon("Images/AttackOnTitan.jpg");
                 JLabel label = new JLabel();
                 label.setIcon(icon);
@@ -197,8 +213,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 label2.setHorizontalAlignment(JLabel.LEFT);
                 second.add(label2);
 
-                animePanel.add(first);
                 animePanel.add(second);
+              */
 
                 // buttons
                 JButton backButton = new JButton("Back to Home");
