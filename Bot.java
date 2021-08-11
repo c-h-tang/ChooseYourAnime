@@ -3,6 +3,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -73,6 +74,11 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String removeSpaces(String name) {
+        name = name.replaceAll("\\s", "");
+        return name;
     }
 
 
@@ -168,11 +174,23 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                 for(int num: matchingIndexes) {
                     JPanel first = new JPanel(new BorderLayout());
-                    first.setPreferredSize(new Dimension(600, 400));
+                    first.setPreferredSize(new Dimension(600, 370));
                     first.setBackground(Color.WHITE);
-                    ImageIcon icon = new ImageIcon("Images/AttackOnTitan.jpg");
+
+                    JLabel animeName = new JLabel(list.get(num).getName() + "\n"); // name of anime
+                    animeName.setFont(new Font("Serif", Font.PLAIN, 30));
+                    animeName.setForeground(Color.BLACK);
+                    first.add(animeName, BorderLayout.NORTH);
+
+                    String imageName = list.get(num).getName();
+                    if (imageName.contains(" ")) {
+                        imageName = removeSpaces(imageName);
+                    }
+
+                    ImageIcon icon = new ImageIcon("Images/" + imageName + ".jpg");
                     JLabel label = new JLabel();
                     label.setIcon(icon);
+                    label.setFont(new Font("Serif", Font.BOLD, 14));
                     label.setText(String.format("<html>Number of Seasons: %s<br>Number of Episodes: %s<br>Number of Movies: %d<br>Number of OVAs: %d</html>",
                             list.get(num).getNumOfSeasons(), Arrays.toString(list.get(num).getNumOfEpisodes()), list.get(num).getNumOfMovies(), list.get(num).getNumOfOVAs()));
                     label.setHorizontalTextPosition(JLabel.CENTER);
@@ -181,6 +199,33 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     label.setHorizontalAlignment(JLabel.LEFT);
                     first.add(label);
                     animePanel.add(first);
+
+                    JLabel buttons = new JLabel();
+                    JButton mal = new JButton("MAL");
+                    JButton wcostream = new JButton("Watch Subbed");
+
+                    mal.addActionListener(e2 -> {
+                        try {
+                            URI uri = new URI(list.get(matchingIndexes.get(0)).getMALURL());
+                            java.awt.Desktop.getDesktop().browse(uri);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    });
+
+                    wcostream.addActionListener(e2 -> {
+                        try {
+                            URI uri = new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
+                            java.awt.Desktop.getDesktop().browse(uri);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    });
+
+                    buttons.add(mal);
+                    buttons.add(wcostream);
+
+                    first.add(buttons, BorderLayout.EAST);
                 }
 
              /*   JPanel first = new JPanel(new BorderLayout());
@@ -218,31 +263,14 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                 // buttons
                 JButton backButton = new JButton("Back to Home");
-                JButton mal = new JButton("MAL");
-                JButton wcostream = new JButton("Watch Subbed");
+
 
                 backButton.addActionListener(e2 -> {
                     searchResults.dispose();
                     openingPage.setVisible(true);
                 });
 
-                mal.addActionListener(e2 -> {
-                    try {
-                        URI uri = new URI(list.get(matchingIndexes.get(0)).getMALURL());
-                        java.awt.Desktop.getDesktop().browse(uri);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                });
 
-                wcostream.addActionListener(e2 -> {
-                    try {
-                        URI uri = new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
-                        java.awt.Desktop.getDesktop().browse(uri);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                });
 
                 middle.removeAll();
                 middle.add(animePanel);
