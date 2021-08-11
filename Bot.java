@@ -74,7 +74,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         }
     }
 
-    public static String removeSpaces(String name) {
+    public static String removeSpaces(String name) { // removes spaces from name of Anime object to format it for jpegs
         name = name.replaceAll("\\s", "");
         return name;
     }
@@ -93,28 +93,32 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         openingPage.setResizable(false);
         Container contents = openingPage.getContentPane();
         contents.setLayout(new BorderLayout());
-        openingPage.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
+        openingPage.setIconImage(new ImageIcon("Images/Spike.jpg").getImage());
 
-
+        // title
         JLabel welcome = new JLabel("Welcome to Choose Your Anime!"); // welcome text
         welcome.setFont(new Font("Serif", Font.PLAIN, 20));
         welcome.setForeground(Color.WHITE);
 
+        // text field that allows users to search for an anime title
         JTextField searchInput = new JTextField("", 20);  // input if user chooses to search for a specific anime
         JButton search = new JButton("Search");    // sign up button
         searchInput.setColumns(28);
 
+        // creates upper layer of opening window
         JPanel top = new JPanel();
         top.setBackground(new Color(0, 78, 250));
         top.setPreferredSize(new Dimension(600, 220));
         top.add(welcome);
 
+        // searching text field initiations
         JPanel searchFeature = new JPanel();
         searchFeature.setBackground(new Color(0, 78, 250));
         top.setPreferredSize(new Dimension(600, 70));
         searchFeature.add(searchInput, BorderLayout.CENTER);
         searchFeature.add(search, BorderLayout.EAST);
 
+        //buttons on opening page
         JButton randomize = new JButton("Randomize");
         randomize.setPreferredSize(new Dimension(170, 100));
         JButton customSearch = new JButton("Genre Search");
@@ -122,6 +126,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         JButton seeList = new JButton("See All");
         seeList.setPreferredSize(new Dimension(170, 100));
 
+        // bottom panel that contains buttons
         JPanel bottom = new JPanel();
         bottom.setPreferredSize(new Dimension(600, 330));
         bottom.setBackground(Color.WHITE);
@@ -135,7 +140,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         openingPage.revalidate();
 
-        search.addActionListener(e -> {
+        search.addActionListener(e -> { // enacts searching algorithm
             boolean inDatabase = false;
             ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
             for (Anime a : list) {
@@ -157,7 +162,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
         });
 
-        seeList.addActionListener(e -> {
+        seeList.addActionListener(e -> { // enacts looking at all anime algorithm
             ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
             for (int i = 0; i < list.size(); i++) {
                 matchingIndexes.add(i);
@@ -168,7 +173,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         });
     }
 
-    public static void showAnimePanel(ArrayList<Integer> matchingIndexes, String searchedWord, JFrame openingPage) {
+    public static void showAnimePanel(ArrayList<Integer> matchingIndexes, String searchedWord, JFrame openingPage) { // shows anime info in grid-like fashion
         JFrame searchResults = new JFrame("Search Results for " + "'" + searchedWord + "'");
         searchResults.setSize(600, 550);
         searchResults.setVisible(true);
@@ -177,7 +182,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         searchResults.setResizable(false);
         Container contents2 = searchResults.getContentPane();
         contents2.setLayout(new BorderLayout());
-        searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
+        searchResults.setIconImage(new ImageIcon("Images/Spike.jpg").getImage());
 
         GridLayout animeGrid = new GridLayout(0, 1,
                 0, 5); // grid for holding comments
