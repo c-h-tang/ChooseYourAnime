@@ -151,10 +151,20 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 searchInput.setText("");
             } else {
                 openingPage.setVisible(false);
-                System.out.println("It worked");
+                System.out.println("It worked - SEARCH");
                 showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
                 searchInput.setText("");
             }
+        });
+
+        seeList.addActionListener(e -> {
+            ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
+            for (int i = 0; i < list.size(); i++) {
+                matchingIndexes.add(i);
+            }
+            openingPage.setVisible(false);
+            System.out.println("It worked - ALL");
+            showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
         });
     }
 
@@ -311,6 +321,12 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 layout.getLayoutComponent(BorderLayout.CENTER))) {
             contents2.remove(layout.getLayoutComponent(BorderLayout.CENTER));
         }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                scroll.getViewport().setViewPosition( new Point(0, 0) );
+            }
+        });
         contents2.add(scroll, BorderLayout.CENTER);
 
         JPanel upper = new JPanel();  // top portion of frame
