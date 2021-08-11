@@ -172,25 +172,39 @@ public class test extends Anime { // where the GUI is created and the user inter
                 JPanel middle = new JPanel();   // middle portion of frame
 
                 for(int num: matchingIndexes) {
-                    JPanel first = new JPanel(new GridLayout(1, 2));
-                    first.setPreferredSize(new Dimension(550, 380));
-                    first.setBackground(Color.WHITE);
-                    first.setBorder(new LineBorder(Color.BLACK, 1, true));
+                    JPanel overall = new JPanel(); // entire layout of each anime panel
+                    overall.setLayout(new BoxLayout(overall, BoxLayout.Y_AXIS));
 
-                    JPanel leftPanel = new JPanel(new BorderLayout()); // panel for left side contents
-                    leftPanel.setPreferredSize(new Dimension(300, 380));
+                    JPanel first = new JPanel();
+                    first.setBackground(Color.white);
+                    first.setPreferredSize((new Dimension(550, 50)));
+                    // first.setBorder(new LineBorder(Color.BLACK, 1, true));
+                    first.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+
+                    JPanel second = new JPanel(new GridLayout(1, 2));
+                    second.setPreferredSize(new Dimension(550, 350));
+                    second.setBackground(Color.WHITE);
+                    // second.setBorder(new LineBorder(Color.BLACK, 1, true));
+                    second.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+
+
+                    JPanel leftPanel = new JPanel(); // panel for left side contents
+                    leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+                    leftPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    leftPanel.setPreferredSize(new Dimension(300, 350));
                     leftPanel.setBackground(Color.WHITE);
 
                     JPanel rightPanel = new JPanel(); // panel for right side contents
                     rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-                    rightPanel.setPreferredSize(new Dimension(250, 380));
+                    rightPanel.setPreferredSize(new Dimension(250, 350));
                     rightPanel.setBackground(Color.WHITE);
 
                     // left side
                     JLabel animeName = new JLabel(list.get(num).getName()); // name of anime
-                    animeName.setFont(new Font("Serif", Font.PLAIN, 30));
+                    animeName.setFont(new Font("Serif", Font.PLAIN, 25));
                     animeName.setForeground(Color.BLACK);
-                    leftPanel.add(animeName, BorderLayout.NORTH);
+                    first.add(animeName, BorderLayout.NORTH);
+                    overall.add(first);
 
                     String imageName = list.get(num).getName();
                     if (imageName.contains(" ")) {
@@ -202,8 +216,8 @@ public class test extends Anime { // where the GUI is created and the user inter
                     JLabel label = new JLabel();
                     label.setIcon(icon);
                     label.setFont(new Font("Serif", Font.BOLD, 14));
-                    label.setText(String.format("<html>  Number of Seasons: %s<br>  Number of Episodes: %s<br>  Number of Movies: %d<br>  Number of OVAs: %d</html>",
-                            list.get(num).getNumOfSeasons(), Arrays.toString(list.get(num).getNumOfEpisodes()), list.get(num).getNumOfMovies(), list.get(num).getNumOfOVAs()));
+                    label.setText(String.format("<html>  Japanese Name: %s<br>  Number of Seasons: %s<br>  Number of Episodes: %s<br>  Number of Movies: %d<br>  Number of OVAs: %d</html>",
+                            list.get(num).getJapName(), list.get(num).getNumOfSeasons(), Arrays.toString(list.get(num).getNumOfEpisodes()), list.get(num).getNumOfMovies(), list.get(num).getNumOfOVAs()));
                     label.setHorizontalTextPosition(JLabel.CENTER);
                     label.setVerticalTextPosition(JLabel.BOTTOM);
                     label.setVerticalAlignment(JLabel.TOP);
@@ -212,10 +226,10 @@ public class test extends Anime { // where the GUI is created and the user inter
 
                     // right side
                     // text that shows summary/synopsis
-                    String t = "\n\nSynopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
+                    String t = "Synopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
                     JTextArea synopsis = new JTextArea(t);
                     synopsis.setPreferredSize(new Dimension(250, 120));
-                    synopsis.setBorder(new LineBorder(Color.BLACK, 1, true));
+                   // synopsis.setBorder(new LineBorder(Color.BLACK, 1, true));
                     synopsis.setLineWrap(true);
                     synopsis.setWrapStyleWord(true);
                     synopsis.setEditable(false);
@@ -224,7 +238,7 @@ public class test extends Anime { // where the GUI is created and the user inter
                     // text that shows MAL and PE rating
                     JTextArea ratings = new JTextArea("\nMAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
                     ratings.setPreferredSize(new Dimension(250, 40));
-                    ratings.setBorder(new LineBorder(Color.BLACK, 1, true));
+                   //  ratings.setBorder(new LineBorder(Color.BLACK, 1, true));
                     ratings.setLineWrap(true);
                     ratings.setWrapStyleWord(true);
                     ratings.setEditable(false);
@@ -233,7 +247,7 @@ public class test extends Anime { // where the GUI is created and the user inter
                     // text that shows filler episodes (if applicable)
                     JTextArea filler = new JTextArea("\nFiller: N/A");
                     filler.setPreferredSize(new Dimension(250, 40));
-                    filler.setBorder(new LineBorder(Color.BLACK, 1, true));
+                    // filler.setBorder(new LineBorder(Color.BLACK, 1, true));
                     filler.setLineWrap(true);
                     filler.setWrapStyleWord(true);
                     filler.setEditable(false);
@@ -274,9 +288,10 @@ public class test extends Anime { // where the GUI is created and the user inter
                     // rightPanel.add(mal);
                     // rightPanel.add(wcostream);
 
-                    first.add(leftPanel);
-                    first.add(rightPanel);
-                    animePanel.add(first);
+                    second.add(leftPanel);
+                    second.add(rightPanel);
+                    overall.add(second);
+                    animePanel.add(overall);
                 }
 
                 // buttons
