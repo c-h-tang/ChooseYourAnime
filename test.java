@@ -211,11 +211,6 @@ public class test extends Anime { // where the GUI is created and the user inter
                     leftPanel.add(label);
 
                     // right side
-                    JButton mal = new JButton("MAL");
-                    JButton wcostream = new JButton("Watch Subbed");
-                    // mal.setPreferredSize(new Dimension(250, 75));
-                    // wcostream.setPreferredSize(new Dimension(250, 75));
-
                     // text that shows summary/synopsis
                     String t = "\n\nSynopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
                     JTextArea synopsis = new JTextArea(t);
@@ -244,6 +239,16 @@ public class test extends Anime { // where the GUI is created and the user inter
                     filler.setEditable(false);
                     filler.setFont(new Font("Serif", Font.BOLD, 14));
 
+                    // buttons to send user to webpage
+                    JPanel buttonPanel = new JPanel();
+                    buttonPanel.setBackground(Color.WHITE);
+                    JButton mal = new JButton("MAL");
+                    JButton wcostream = new JButton("Watch Subbed");
+                    mal.setPreferredSize(new Dimension(120, 30));
+                    wcostream.setPreferredSize(new Dimension(120, 30));
+                    buttonPanel.add(mal);
+                    buttonPanel.add(wcostream);
+
                     mal.addActionListener(e2 -> { // sends user to MAL website when pressed
                         try {
                             URI uri = new URI(list.get(num).getMALURL());
@@ -265,8 +270,9 @@ public class test extends Anime { // where the GUI is created and the user inter
                     rightPanel.add(synopsis);
                     rightPanel.add(ratings);
                     rightPanel.add(filler);
-                    rightPanel.add(mal);
-                    rightPanel.add(wcostream);
+                    rightPanel.add(buttonPanel);
+                    // rightPanel.add(mal);
+                    // rightPanel.add(wcostream);
 
                     first.add(leftPanel);
                     first.add(rightPanel);

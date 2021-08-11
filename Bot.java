@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
@@ -16,7 +17,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         return "Images/" + imageName;
     }
 
-    public static void test() {
+    public static void test() { // lists out all the information collected in ArrayList<Anime> for each line in data.txt
         for (int i = 0; i < list.size(); i++) {
             System.out.printf("Name: %s\n", list.get(i).getName());
             System.out.printf("Japanese Name Name: %s\n", list.get(i).getJapName());
@@ -37,7 +38,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         }
     }
 
-    public static void collectData() {
+    public static void collectData() { // creates an Anime object with all the data in each line and adds it to ArrayList<Anime> list
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("data.txt"));
             String line = bfr.readLine();
@@ -164,7 +165,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
 
                 GridLayout animeGrid = new GridLayout(0, 1,
-                        0, 1); // grid for holding comments
+                        0, 5); // grid for holding comments
 
                 JPanel animePanel = new JPanel(animeGrid);  // panel for holding grid
 
@@ -172,15 +173,17 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                 for(int num: matchingIndexes) {
                     JPanel first = new JPanel(new GridLayout(1, 2));
-                    first.setPreferredSize(new Dimension(600, 380));
+                    first.setPreferredSize(new Dimension(550, 380));
                     first.setBackground(Color.WHITE);
+                    first.setBorder(new LineBorder(Color.BLACK, 1, true));
 
                     JPanel leftPanel = new JPanel(new BorderLayout()); // panel for left side contents
                     leftPanel.setPreferredSize(new Dimension(300, 380));
                     leftPanel.setBackground(Color.WHITE);
 
                     JPanel rightPanel = new JPanel(); // panel for right side contents
-                    rightPanel.setPreferredSize(new Dimension(300, 380));
+                    rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+                    rightPanel.setPreferredSize(new Dimension(250, 380));
                     rightPanel.setBackground(Color.WHITE);
 
                     // left side
@@ -199,7 +202,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     JLabel label = new JLabel();
                     label.setIcon(icon);
                     label.setFont(new Font("Serif", Font.BOLD, 14));
-                    label.setText(String.format("<html>Number of Seasons: %s<br>Number of Episodes: %s<br>Number of Movies: %d<br>Number of OVAs: %d</html>",
+                    label.setText(String.format("<html>  Number of Seasons: %s<br>  Number of Episodes: %s<br>  Number of Movies: %d<br>  Number of OVAs: %d</html>",
                             list.get(num).getNumOfSeasons(), Arrays.toString(list.get(num).getNumOfEpisodes()), list.get(num).getNumOfMovies(), list.get(num).getNumOfOVAs()));
                     label.setHorizontalTextPosition(JLabel.CENTER);
                     label.setVerticalTextPosition(JLabel.BOTTOM);
@@ -208,13 +211,45 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     leftPanel.add(label);
 
                     // right side
+                    // text that shows summary/synopsis
+                    String t = "\n\nSynopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
+                    JTextArea synopsis = new JTextArea(t);
+                    synopsis.setPreferredSize(new Dimension(250, 120));
+                    synopsis.setBorder(new LineBorder(Color.BLACK, 1, true));
+                    synopsis.setLineWrap(true);
+                    synopsis.setWrapStyleWord(true);
+                    synopsis.setEditable(false);
+                    synopsis.setFont(new Font("Serif", Font.BOLD, 14));
+
+                    // text that shows MAL and PE rating
+                    JTextArea ratings = new JTextArea("\nMAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
+                    ratings.setPreferredSize(new Dimension(250, 40));
+                    ratings.setBorder(new LineBorder(Color.BLACK, 1, true));
+                    ratings.setLineWrap(true);
+                    ratings.setWrapStyleWord(true);
+                    ratings.setEditable(false);
+                    ratings.setFont(new Font("Serif", Font.BOLD, 14));
+
+                    // text that shows filler episodes (if applicable)
+                    JTextArea filler = new JTextArea("\nFiller: N/A");
+                    filler.setPreferredSize(new Dimension(250, 40));
+                    filler.setBorder(new LineBorder(Color.BLACK, 1, true));
+                    filler.setLineWrap(true);
+                    filler.setWrapStyleWord(true);
+                    filler.setEditable(false);
+                    filler.setFont(new Font("Serif", Font.BOLD, 14));
+
+                    // buttons to send user to webpage
+                    JPanel buttonPanel = new JPanel();
+                    buttonPanel.setBackground(Color.WHITE);
                     JButton mal = new JButton("MAL");
                     JButton wcostream = new JButton("Watch Subbed");
-                    mal.setPreferredSize(new Dimension(100, 100));
-                    wcostream.setPreferredSize(new Dimension(100, 100));
-                    JTextArea text = new JTextArea("This\nis\na\nvertical\nsentence\n.");
+                    mal.setPreferredSize(new Dimension(120, 30));
+                    wcostream.setPreferredSize(new Dimension(120, 30));
+                    buttonPanel.add(mal);
+                    buttonPanel.add(wcostream);
 
-                    mal.addActionListener(e2 -> {
+                    mal.addActionListener(e2 -> { // sends user to MAL website when pressed
                         try {
                             URI uri = new URI(list.get(num).getMALURL());
                             java.awt.Desktop.getDesktop().browse(uri);
@@ -223,7 +258,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                         }
                     });
 
-                    wcostream.addActionListener(e2 -> {
+                    wcostream.addActionListener(e2 -> { // sends user to watching portal when pressed
                         try {
                             URI uri = new URI(list.get(num).getGogoanimeURL());
                             java.awt.Desktop.getDesktop().browse(uri);
@@ -232,9 +267,12 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                         }
                     });
 
-                    rightPanel.add(text);
-                    rightPanel.add(mal);
-                    rightPanel.add(wcostream);
+                    rightPanel.add(synopsis);
+                    rightPanel.add(ratings);
+                    rightPanel.add(filler);
+                    rightPanel.add(buttonPanel);
+                    // rightPanel.add(mal);
+                    // rightPanel.add(wcostream);
 
                     first.add(leftPanel);
                     first.add(rightPanel);
