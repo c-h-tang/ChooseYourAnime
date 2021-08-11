@@ -152,167 +152,171 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             } else {
                 openingPage.setVisible(false);
                 System.out.println("It worked");
-                JFrame searchResults = new JFrame("Search Results for " + "'" + searchInput.getText() + "'");
+                showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
                 searchInput.setText("");
-                searchResults.setSize(600, 550);
-                searchResults.setVisible(true);
-                searchResults.setLocationRelativeTo(null);
-                searchResults.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                searchResults.setResizable(false);
-                Container contents2 = searchResults.getContentPane();
-                contents2.setLayout(new BorderLayout());
-                searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
-
-                GridLayout animeGrid = new GridLayout(0, 1,
-                        0, 5); // grid for holding comments
-
-                JPanel animePanel = new JPanel(animeGrid);  // panel for holding grid
-
-                JPanel middle = new JPanel();   // middle portion of frame
-
-                for(int num: matchingIndexes) {
-                    JPanel overall = new JPanel(); // entire layout of each anime panel
-                    overall.setLayout(new BoxLayout(overall, BoxLayout.Y_AXIS));
-
-                    JPanel first = new JPanel();
-                    first.setBackground(Color.white);
-                    first.setPreferredSize((new Dimension(550, 50)));
-                    first.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
-
-                    JPanel second = new JPanel(new GridLayout(1, 2));
-                    second.setPreferredSize(new Dimension(550, 350));
-                    second.setBackground(Color.WHITE);
-                    second.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
-
-
-                    JPanel leftPanel = new JPanel(); // panel for left side contents
-                    leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-                    leftPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-                    leftPanel.setPreferredSize(new Dimension(300, 350));
-                    leftPanel.setBackground(Color.WHITE);
-
-                    JPanel rightPanel = new JPanel(); // panel for right side contents
-                    rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-                    rightPanel.setPreferredSize(new Dimension(250, 350));
-                    rightPanel.setBackground(Color.WHITE);
-
-                    // left side
-                    JLabel animeName = new JLabel(list.get(num).getName()); // name of anime
-                    animeName.setFont(new Font("Serif", Font.PLAIN, 25));
-                    animeName.setForeground(Color.BLACK);
-                    first.add(animeName, BorderLayout.NORTH);
-                    overall.add(first);
-
-                    String imageName = list.get(num).getName();
-                    if (imageName.contains(" ")) {
-                        imageName = removeSpaces(imageName);
-                    }
-
-                    // left side
-                    ImageIcon icon = new ImageIcon("Images/" + imageName + "2.jpg");
-                    JLabel label = new JLabel();
-                    label.setIcon(icon);
-                    label.setFont(new Font("Serif", Font.BOLD, 14));
-                    label.setText(String.format("<html>  Japanese Name: %s<br>  Number of Seasons: %s<br>  Number of Episodes: %s<br>  Number of Movies: %d<br>  Number of OVAs: %d</html>",
-                            list.get(num).getJapName(), list.get(num).getNumOfSeasons(), Arrays.toString(list.get(num).getNumOfEpisodes()), list.get(num).getNumOfMovies(), list.get(num).getNumOfOVAs()));
-                    label.setHorizontalTextPosition(JLabel.CENTER);
-                    label.setVerticalTextPosition(JLabel.BOTTOM);
-                    label.setVerticalAlignment(JLabel.TOP);
-                    label.setHorizontalAlignment(JLabel.LEFT);
-                    leftPanel.add(label);
-
-                    // right side
-                    // text that shows summary/synopsis
-                    String t = "Synopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
-                    JTextArea synopsis = new JTextArea(t);
-                    synopsis.setPreferredSize(new Dimension(250, 120));
-                    synopsis.setLineWrap(true);
-                    synopsis.setWrapStyleWord(true);
-                    synopsis.setEditable(false);
-                    synopsis.setFont(new Font("Serif", Font.BOLD, 14));
-
-                    // text that shows MAL and PE rating
-                    JTextArea ratings = new JTextArea("\nMAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
-                    ratings.setPreferredSize(new Dimension(250, 40));
-                    ratings.setLineWrap(true);
-                    ratings.setWrapStyleWord(true);
-                    ratings.setEditable(false);
-                    ratings.setFont(new Font("Serif", Font.BOLD, 14));
-
-                    // text that shows filler episodes (if applicable)
-                    JTextArea filler = new JTextArea("\nFiller: N/A");
-                    filler.setPreferredSize(new Dimension(250, 40));
-                    filler.setLineWrap(true);
-                    filler.setWrapStyleWord(true);
-                    filler.setEditable(false);
-                    filler.setFont(new Font("Serif", Font.BOLD, 14));
-
-                    // buttons to send user to webpage
-                    JPanel buttonPanel = new JPanel();
-                    buttonPanel.setBackground(Color.WHITE);
-                    JButton mal = new JButton("MAL");
-                    JButton wcostream = new JButton("Watch Subbed");
-                    mal.setPreferredSize(new Dimension(120, 30));
-                    wcostream.setPreferredSize(new Dimension(120, 30));
-                    buttonPanel.add(mal);
-                    buttonPanel.add(wcostream);
-
-                    mal.addActionListener(e2 -> { // sends user to MAL website when pressed
-                        try {
-                            URI uri = new URI(list.get(num).getMALURL());
-                            java.awt.Desktop.getDesktop().browse(uri);
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
-                    });
-
-                    wcostream.addActionListener(e2 -> { // sends user to watching portal when pressed
-                        try {
-                            URI uri = new URI(list.get(num).getGogoanimeURL());
-                            java.awt.Desktop.getDesktop().browse(uri);
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
-                    });
-
-                    rightPanel.add(synopsis);
-                    rightPanel.add(ratings);
-                    rightPanel.add(filler);
-                    rightPanel.add(buttonPanel);
-
-                    second.add(leftPanel);
-                    second.add(rightPanel);
-                    overall.add(second);
-                    animePanel.add(overall);
-                }
-
-                // button to return to home
-                JButton backButton = new JButton("Back to Home");
-
-                backButton.addActionListener(e2 -> {
-                    searchResults.dispose();
-                    openingPage.setVisible(true);
-                });
-
-                middle.removeAll();
-                middle.add(animePanel);
-
-                // creates the scroll bar on the right of the page
-                JScrollPane scroll = new JScrollPane(middle, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar for comments
-                BorderLayout layout = (BorderLayout) contents2.getLayout();  // middle portion with comments
-                if (Arrays.asList(contents2.getComponents()).contains(
-                        layout.getLayoutComponent(BorderLayout.CENTER))) {
-                    contents2.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-                }
-                contents2.add(scroll, BorderLayout.CENTER);
-
-                JPanel upper = new JPanel();  // top portion of frame
-                upper.add(backButton, BorderLayout.WEST);
-                contents2.add(upper, BorderLayout.NORTH);
-                contents2.revalidate();
-                searchResults.revalidate();
             }
         });
+    }
+
+    public static void showAnimePanel(ArrayList<Integer> matchingIndexes, String searchedWord, JFrame openingPage) {
+        JFrame searchResults = new JFrame("Search Results for " + "'" + searchedWord + "'");
+        searchResults.setSize(600, 550);
+        searchResults.setVisible(true);
+        searchResults.setLocationRelativeTo(null);
+        searchResults.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        searchResults.setResizable(false);
+        Container contents2 = searchResults.getContentPane();
+        contents2.setLayout(new BorderLayout());
+        searchResults.setIconImage(new ImageIcon(toImageFormat("Spike.jpg")).getImage());
+
+        GridLayout animeGrid = new GridLayout(0, 1,
+                0, 5); // grid for holding comments
+
+        JPanel animePanel = new JPanel(animeGrid);  // panel for holding grid
+
+        JPanel middle = new JPanel();   // middle portion of frame
+
+        for(int num: matchingIndexes) {
+            JPanel overall = new JPanel(); // entire layout of each anime panel
+            overall.setLayout(new BoxLayout(overall, BoxLayout.Y_AXIS));
+
+            JPanel first = new JPanel();
+            first.setBackground(Color.white);
+            first.setPreferredSize((new Dimension(550, 50)));
+            first.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+
+            JPanel second = new JPanel(new GridLayout(1, 2));
+            second.setPreferredSize(new Dimension(550, 350));
+            second.setBackground(Color.WHITE);
+            second.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+
+
+            JPanel leftPanel = new JPanel(); // panel for left side contents
+            leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+            leftPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            leftPanel.setPreferredSize(new Dimension(300, 350));
+            leftPanel.setBackground(Color.WHITE);
+
+            JPanel rightPanel = new JPanel(); // panel for right side contents
+            rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+            rightPanel.setPreferredSize(new Dimension(250, 350));
+            rightPanel.setBackground(Color.WHITE);
+
+            // left side
+            JLabel animeName = new JLabel(list.get(num).getName()); // name of anime
+            animeName.setFont(new Font("Serif", Font.PLAIN, 25));
+            animeName.setForeground(Color.BLACK);
+            first.add(animeName, BorderLayout.NORTH);
+            overall.add(first);
+
+            String imageName = list.get(num).getName();
+            if (imageName.contains(" ")) {
+                imageName = removeSpaces(imageName);
+            }
+
+            // left side
+            ImageIcon icon = new ImageIcon("Images/" + imageName + ".jpg");
+            JLabel label = new JLabel();
+            label.setIcon(icon);
+            label.setFont(new Font("Serif", Font.BOLD, 14));
+            label.setText(String.format("<html>  Japanese Name: %s<br>  Number of Seasons: %s<br>  Number of Episodes: %s<br>  Number of Movies: %d<br>  Number of OVAs: %d</html>",
+                    list.get(num).getJapName(), list.get(num).getNumOfSeasons(), Arrays.toString(list.get(num).getNumOfEpisodes()), list.get(num).getNumOfMovies(), list.get(num).getNumOfOVAs()));
+            label.setHorizontalTextPosition(JLabel.CENTER);
+            label.setVerticalTextPosition(JLabel.BOTTOM);
+            label.setVerticalAlignment(JLabel.TOP);
+            label.setHorizontalAlignment(JLabel.LEFT);
+            leftPanel.add(label);
+
+            // right side
+            // text that shows summary/synopsis
+            String t = "Synopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
+            JTextArea synopsis = new JTextArea(t);
+            synopsis.setPreferredSize(new Dimension(250, 120));
+            synopsis.setLineWrap(true);
+            synopsis.setWrapStyleWord(true);
+            synopsis.setEditable(false);
+            synopsis.setFont(new Font("Serif", Font.BOLD, 14));
+
+            // text that shows MAL and PE rating
+            JTextArea ratings = new JTextArea("\nMAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
+            ratings.setPreferredSize(new Dimension(250, 40));
+            ratings.setLineWrap(true);
+            ratings.setWrapStyleWord(true);
+            ratings.setEditable(false);
+            ratings.setFont(new Font("Serif", Font.BOLD, 14));
+
+            // text that shows filler episodes (if applicable)
+            JTextArea filler = new JTextArea("\nFiller: N/A");
+            filler.setPreferredSize(new Dimension(250, 40));
+            filler.setLineWrap(true);
+            filler.setWrapStyleWord(true);
+            filler.setEditable(false);
+            filler.setFont(new Font("Serif", Font.BOLD, 14));
+
+            // buttons to send user to webpage
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setBackground(Color.WHITE);
+            JButton mal = new JButton("MAL");
+            JButton wcostream = new JButton("Watch Subbed");
+            mal.setPreferredSize(new Dimension(120, 30));
+            wcostream.setPreferredSize(new Dimension(120, 30));
+            buttonPanel.add(mal);
+            buttonPanel.add(wcostream);
+
+            mal.addActionListener(e2 -> { // sends user to MAL website when pressed
+                try {
+                    URI uri = new URI(list.get(num).getMALURL());
+                    java.awt.Desktop.getDesktop().browse(uri);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+            wcostream.addActionListener(e2 -> { // sends user to watching portal when pressed
+                try {
+                    URI uri = new URI(list.get(num).getGogoanimeURL());
+                    java.awt.Desktop.getDesktop().browse(uri);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+            rightPanel.add(synopsis);
+            rightPanel.add(ratings);
+            rightPanel.add(filler);
+            rightPanel.add(buttonPanel);
+
+            second.add(leftPanel);
+            second.add(rightPanel);
+            overall.add(second);
+            animePanel.add(overall);
+        }
+
+        // button to return to home
+        JButton backButton = new JButton("Back to Home");
+
+        backButton.addActionListener(e2 -> {
+            searchResults.dispose();
+            openingPage.setVisible(true);
+        });
+
+        middle.removeAll();
+        middle.add(animePanel);
+
+        // creates the scroll bar on the right of the page
+        JScrollPane scroll = new JScrollPane(middle, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar for comments
+        BorderLayout layout = (BorderLayout) contents2.getLayout();  // middle portion with comments
+        if (Arrays.asList(contents2.getComponents()).contains(
+                layout.getLayoutComponent(BorderLayout.CENTER))) {
+            contents2.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+        }
+        contents2.add(scroll, BorderLayout.CENTER);
+
+        JPanel upper = new JPanel();  // top portion of frame
+        upper.add(backButton, BorderLayout.WEST);
+        contents2.add(upper, BorderLayout.NORTH);
+        contents2.revalidate();
+        searchResults.revalidate();
     }
 }
