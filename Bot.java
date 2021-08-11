@@ -79,6 +79,24 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         return name;
     }
 
+    public static String showAllGenres(Anime a) {
+        String allGenres = "Genres: ";
+
+        String[] both = Arrays.copyOf(a.getMainGenre(), a.getMainGenre().length + a.getSubgenres().length);
+        System.arraycopy(a.getSubgenres(), 0, both, a.getMainGenre().length, a.getSubgenres().length);
+
+        for (int i = 0; i < both.length; i++) {
+            if (both[i] != "") {
+                allGenres = allGenres + both[i];
+            }
+            if (i != both.length - 1 && !both[i + 1].equals("")) {
+                allGenres = allGenres + ", ";
+            }
+        }
+
+        return allGenres;
+    }
+
 
     public static void main(String[] args) {
         collectData();
@@ -246,11 +264,21 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             // text that shows summary/synopsis
             String t = "Synopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
             JTextArea synopsis = new JTextArea(t);
-            synopsis.setPreferredSize(new Dimension(250, 120));
+            synopsis.setPreferredSize(new Dimension(250, 95));
             synopsis.setLineWrap(true);
             synopsis.setWrapStyleWord(true);
             synopsis.setEditable(false);
             synopsis.setFont(new Font("Serif", Font.BOLD, 14));
+
+            // text that shows genres
+            String allGenres = "";
+            allGenres = showAllGenres(list.get(num));
+            JTextArea genres = new JTextArea(allGenres);
+            genres.setPreferredSize(new Dimension(250, 25));
+            genres.setLineWrap(true);
+            genres.setWrapStyleWord(true);
+            genres.setEditable(false);
+            genres.setFont(new Font("Serif", Font.BOLD, 14));
 
             // text that shows MAL and PE rating
             JTextArea ratings = new JTextArea("\nMAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
@@ -262,7 +290,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
             // text that shows filler episodes (if applicable)
             JTextArea filler = new JTextArea("\nFiller: N/A");
-            filler.setPreferredSize(new Dimension(250, 40));
+            filler.setPreferredSize(new Dimension(250, 25));
             filler.setLineWrap(true);
             filler.setWrapStyleWord(true);
             filler.setEditable(false);
@@ -273,8 +301,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             buttonPanel.setBackground(Color.WHITE);
             JButton mal = new JButton("MAL");
             JButton wcostream = new JButton("Watch Subbed");
-            mal.setPreferredSize(new Dimension(120, 30));
-            wcostream.setPreferredSize(new Dimension(120, 30));
+            mal.setPreferredSize(new Dimension(120, 25));
+            wcostream.setPreferredSize(new Dimension(120, 25));
             buttonPanel.add(mal);
             buttonPanel.add(wcostream);
 
@@ -297,6 +325,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             });
 
             rightPanel.add(synopsis);
+            rightPanel.add(genres);
             rightPanel.add(ratings);
             rightPanel.add(filler);
             rightPanel.add(buttonPanel);
@@ -320,8 +349,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         // creates the scroll bar on the right of the page
         JScrollPane scroll = new JScrollPane(middle, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar for comments
-        BorderLayout layout = (BorderLayout) contents2.getLayout();  // middle portion with comments
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar
+        BorderLayout layout = (BorderLayout) contents2.getLayout();  // middle portion
         if (Arrays.asList(contents2.getComponents()).contains(
                 layout.getLayoutComponent(BorderLayout.CENTER))) {
             contents2.remove(layout.getLayoutComponent(BorderLayout.CENTER));
