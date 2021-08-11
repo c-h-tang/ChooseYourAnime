@@ -1,16 +1,14 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Bot extends Anime { // where the GUI is created and the user interacts with the program
     private static ArrayList<Anime> list = new ArrayList<>(); // list of Anime objects
 
-    public Bot(String name) {
+    public Bot (String name) {
         super(name);
     }
 
@@ -173,20 +171,30 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 JPanel middle = new JPanel();   // middle portion of frame
 
                 for(int num: matchingIndexes) {
-                    JPanel first = new JPanel(new BorderLayout());
-                    first.setPreferredSize(new Dimension(600, 370));
+                    JPanel first = new JPanel(new GridLayout(1, 2));
+                    first.setPreferredSize(new Dimension(600, 380));
                     first.setBackground(Color.WHITE);
 
-                    JLabel animeName = new JLabel(list.get(num).getName() + "\n"); // name of anime
+                    JPanel leftPanel = new JPanel(new BorderLayout()); // panel for left side contents
+                    leftPanel.setPreferredSize(new Dimension(300, 380));
+                    leftPanel.setBackground(Color.WHITE);
+
+                    JPanel rightPanel = new JPanel(new BorderLayout()); // panel for right side contents
+                    rightPanel.setPreferredSize(new Dimension(300, 380));
+                    rightPanel.setBackground(Color.WHITE);
+
+                    // left side
+                    JLabel animeName = new JLabel(list.get(num).getName()); // name of anime
                     animeName.setFont(new Font("Serif", Font.PLAIN, 30));
                     animeName.setForeground(Color.BLACK);
-                    first.add(animeName, BorderLayout.NORTH);
+                    leftPanel.add(animeName, BorderLayout.NORTH);
 
                     String imageName = list.get(num).getName();
                     if (imageName.contains(" ")) {
                         imageName = removeSpaces(imageName);
                     }
 
+                    // left side
                     ImageIcon icon = new ImageIcon("Images/" + imageName + ".jpg");
                     JLabel label = new JLabel();
                     label.setIcon(icon);
@@ -197,16 +205,15 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     label.setVerticalTextPosition(JLabel.BOTTOM);
                     label.setVerticalAlignment(JLabel.TOP);
                     label.setHorizontalAlignment(JLabel.LEFT);
-                    first.add(label);
-                    animePanel.add(first);
+                    leftPanel.add(label);
 
-                    JLabel buttons = new JLabel();
+                    // right side
                     JButton mal = new JButton("MAL");
                     JButton wcostream = new JButton("Watch Subbed");
 
                     mal.addActionListener(e2 -> {
                         try {
-                            URI uri = new URI(list.get(matchingIndexes.get(0)).getMALURL());
+                            URI uri = new URI(list.get(matchingIndexes.get(num)).getMALURL());
                             java.awt.Desktop.getDesktop().browse(uri);
                         } catch (Exception e1) {
                             e1.printStackTrace();
@@ -215,66 +222,33 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                     wcostream.addActionListener(e2 -> {
                         try {
-                            URI uri = new URI(list.get(matchingIndexes.get(0)).getGogoanimeURL());
+                            URI uri = new URI(list.get(matchingIndexes.get(num)).getGogoanimeURL());
                             java.awt.Desktop.getDesktop().browse(uri);
                         } catch (Exception e1) {
                             e1.printStackTrace();
                         }
                     });
 
-                    buttons.add(mal);
-                    buttons.add(wcostream);
+                    rightPanel.add(mal, BorderLayout.SOUTH);
+                    rightPanel.add(wcostream, BorderLayout.SOUTH);
 
-                    first.add(buttons, BorderLayout.EAST);
+                    first.add(leftPanel);
+                    first.add(rightPanel);
+                    animePanel.add(first);
                 }
-
-             /*   JPanel first = new JPanel(new BorderLayout());
-                first.setPreferredSize(new Dimension(600, 400));
-                first.setBackground(Color.WHITE);
-                ImageIcon icon = new ImageIcon("Images/AttackOnTitan.jpg");
-                JLabel label = new JLabel();
-                label.setIcon(icon);
-                System.out.println("Height is: "+ icon.getIconHeight());
-                System.out.println("Width is: " + icon.getIconWidth());
-                label.setText("Attack on Titan");
-                label.setHorizontalTextPosition(JLabel.CENTER);
-                label.setVerticalTextPosition(JLabel.BOTTOM);
-                label.setVerticalAlignment(JLabel.TOP);
-                label.setHorizontalAlignment(JLabel.LEFT);
-                first.add(label);
-
-                JPanel second = new JPanel(new BorderLayout());
-                second.setPreferredSize(new Dimension(600, 400));
-                second.setBackground(Color.WHITE);
-                ImageIcon icon2 = new ImageIcon("Images/OnePiece.jpg");
-                JLabel label2 = new JLabel();
-                label2.setIcon(icon2);
-                System.out.println("Height is: "+ icon.getIconHeight());
-                System.out.println("Width is: " + icon.getIconWidth());
-                label2.setText("One Piece");
-                label2.setHorizontalTextPosition(JLabel.CENTER);
-                label2.setVerticalTextPosition(JLabel.BOTTOM);
-                label2.setVerticalAlignment(JLabel.TOP);
-                label2.setHorizontalAlignment(JLabel.LEFT);
-                second.add(label2);
-
-                animePanel.add(second);
-              */
 
                 // buttons
                 JButton backButton = new JButton("Back to Home");
-
 
                 backButton.addActionListener(e2 -> {
                     searchResults.dispose();
                     openingPage.setVisible(true);
                 });
 
-
-
                 middle.removeAll();
                 middle.add(animePanel);
 
+                // creates the scroll bar on the right of the page
                 JScrollPane scroll = new JScrollPane(middle, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                         JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);    // scroll bar for comments
                 BorderLayout layout = (BorderLayout) contents2.getLayout();  // middle portion with comments
@@ -292,5 +266,4 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
         });
     }
-
 }
