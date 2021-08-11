@@ -82,7 +82,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
     public static void main(String[] args) {
         collectData();
-        //test();
+        // test();
 
         // initializes frame for opening page //
         JFrame openingPage = new JFrame("Choose Your Anime");
@@ -222,7 +222,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
                     wcostream.addActionListener(e2 -> {
                         try {
-                            URI uri = new URI(list.get(matchingIndexes.get(num)).getGogoanimeURL());
+                            System.out.println(list.get(num).getGogoanimeURL());
+                            URI uri = new URI(list.get(num).getGogoanimeURL());
                             java.awt.Desktop.getDesktop().browse(uri);
                         } catch (Exception e1) {
                             e1.printStackTrace();
