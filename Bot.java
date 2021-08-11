@@ -74,8 +74,9 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         }
     }
 
-    public static String removeSpaces(String name) { // removes spaces from name of Anime object to format it for jpegs
+    public static String changeToJPEGName(String name) { // removes spaces from name of Anime object to format it for jpegs
         name = name.replaceAll("\\s", "");
+        name = name.replaceAll(":", "");
         return name;
     }
 
@@ -244,7 +245,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
             String imageName = list.get(num).getName();
             if (imageName.contains(" ")) {
-                imageName = removeSpaces(imageName);
+                imageName = changeToJPEGName(imageName);
             }
 
             // left side
