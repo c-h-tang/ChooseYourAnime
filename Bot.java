@@ -116,18 +116,18 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         searchFeature.add(search, BorderLayout.EAST);
 
         JButton randomize = new JButton("Randomize");
-        randomize.setPreferredSize(new Dimension(100, 100));
+        randomize.setPreferredSize(new Dimension(170, 100));
         JButton customSearch = new JButton("Genre Search");
-        customSearch.setPreferredSize(new Dimension(100, 100));
+        customSearch.setPreferredSize(new Dimension(170, 100));
         JButton seeList = new JButton("See All");
-        seeList.setPreferredSize(new Dimension(100, 100));
+        seeList.setPreferredSize(new Dimension(170, 100));
 
         JPanel bottom = new JPanel();
         bottom.setPreferredSize(new Dimension(600, 330));
         bottom.setBackground(Color.WHITE);
-        bottom.add(randomize);
-        bottom.add(customSearch);
-        bottom.add(seeList);
+        bottom.add(randomize, BorderLayout.CENTER);
+        bottom.add(customSearch, BorderLayout.CENTER);
+        bottom.add(seeList, BorderLayout.CENTER);
 
         contents.add(top, BorderLayout.NORTH);
         contents.add(searchFeature, BorderLayout.CENTER);
@@ -179,7 +179,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     leftPanel.setPreferredSize(new Dimension(300, 380));
                     leftPanel.setBackground(Color.WHITE);
 
-                    JPanel rightPanel = new JPanel(new BorderLayout()); // panel for right side contents
+                    JPanel rightPanel = new JPanel(); // panel for right side contents
                     rightPanel.setPreferredSize(new Dimension(300, 380));
                     rightPanel.setBackground(Color.WHITE);
 
@@ -210,8 +210,9 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     // right side
                     JButton mal = new JButton("MAL");
                     JButton wcostream = new JButton("Watch Subbed");
-                    JTextArea text = new JTextArea();
-                    text.setText("LOLOLOLOLOLOL");
+                    mal.setPreferredSize(new Dimension(100, 100));
+                    wcostream.setPreferredSize(new Dimension(100, 100));
+                    JTextArea text = new JTextArea("This\nis\na\nvertical\nsentence\n.");
 
                     mal.addActionListener(e2 -> {
                         try {
@@ -231,8 +232,9 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                         }
                     });
 
+                    rightPanel.add(text);
                     rightPanel.add(mal);
-                    rightPanel.add(wcostream, BorderLayout.SOUTH);
+                    rightPanel.add(wcostream);
 
                     first.add(leftPanel);
                     first.add(rightPanel);
