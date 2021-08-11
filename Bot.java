@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
@@ -178,13 +177,11 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     JPanel first = new JPanel();
                     first.setBackground(Color.white);
                     first.setPreferredSize((new Dimension(550, 50)));
-                    // first.setBorder(new LineBorder(Color.BLACK, 1, true));
                     first.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
 
                     JPanel second = new JPanel(new GridLayout(1, 2));
                     second.setPreferredSize(new Dimension(550, 350));
                     second.setBackground(Color.WHITE);
-                    // second.setBorder(new LineBorder(Color.BLACK, 1, true));
                     second.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
 
 
@@ -212,7 +209,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     }
 
                     // left side
-                    ImageIcon icon = new ImageIcon("Images/" + imageName + ".jpg");
+                    ImageIcon icon = new ImageIcon("Images/" + imageName + "2.jpg");
                     JLabel label = new JLabel();
                     label.setIcon(icon);
                     label.setFont(new Font("Serif", Font.BOLD, 14));
@@ -229,7 +226,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     String t = "Synopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
                     JTextArea synopsis = new JTextArea(t);
                     synopsis.setPreferredSize(new Dimension(250, 120));
-                    // synopsis.setBorder(new LineBorder(Color.BLACK, 1, true));
                     synopsis.setLineWrap(true);
                     synopsis.setWrapStyleWord(true);
                     synopsis.setEditable(false);
@@ -238,7 +234,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     // text that shows MAL and PE rating
                     JTextArea ratings = new JTextArea("\nMAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
                     ratings.setPreferredSize(new Dimension(250, 40));
-                    //  ratings.setBorder(new LineBorder(Color.BLACK, 1, true));
                     ratings.setLineWrap(true);
                     ratings.setWrapStyleWord(true);
                     ratings.setEditable(false);
@@ -247,7 +242,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     // text that shows filler episodes (if applicable)
                     JTextArea filler = new JTextArea("\nFiller: N/A");
                     filler.setPreferredSize(new Dimension(250, 40));
-                    // filler.setBorder(new LineBorder(Color.BLACK, 1, true));
                     filler.setLineWrap(true);
                     filler.setWrapStyleWord(true);
                     filler.setEditable(false);
@@ -285,8 +279,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     rightPanel.add(ratings);
                     rightPanel.add(filler);
                     rightPanel.add(buttonPanel);
-                    // rightPanel.add(mal);
-                    // rightPanel.add(wcostream);
 
                     second.add(leftPanel);
                     second.add(rightPanel);
@@ -294,7 +286,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     animePanel.add(overall);
                 }
 
-                // buttons
+                // button to return to home
                 JButton backButton = new JButton("Back to Home");
 
                 backButton.addActionListener(e2 -> {
