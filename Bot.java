@@ -105,6 +105,42 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         showAnimePanel(matchingIndexes, searchedWord, openingPage, true, "RANDOM");
     }
 
+    public static void findTopTenEnjoyment(JFrame openingPage, String searchedWord) { // find the top 10 most enjoyed anime in the database
+        int i = 0;
+        double[] ar = new double[list.size()];
+        for(Anime a: list) {
+            ar[i++] = Double.parseDouble(a.getSeriesEnjoymentRating());
+        }
+        Arrays.sort(ar);
+
+        double[] topTen = new double[10];
+        for (int j = 0; j < 10; j++) {
+            topTen[j] = ar[ar.length - 1 - j];
+        }
+
+        ArrayList<Anime> topTenList = new ArrayList<>();
+        for (int j = 0; j < 10; j++) {
+            for (Anime an: list) {
+                if (!topTenList.contains(an) && Double.parseDouble(an.getSeriesEnjoymentRating()) == topTen[j]) {
+                    topTenList.add(an);
+                }
+            }
+        }
+
+        ArrayList<Integer> topTenInt = new ArrayList<>();
+        for (Anime an: topTenList) {
+            int x = 0;
+            for (Anime anime: list) {
+                if (anime == an) {
+                    topTenInt.add(x);
+                } else {
+                    x++;
+                }
+            }
+        }
+        showAnimePanel(topTenInt, searchedWord, openingPage, true, "ENJOYMENT");
+    }
+
     public static void main(String[] args) {
         collectData();
         // test();
@@ -150,14 +186,27 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         customSearch.setPreferredSize(new Dimension(170, 100));
         JButton seeList = new JButton("See All");
         seeList.setPreferredSize(new Dimension(170, 100));
+        JButton topTenMAL = new JButton("MAL's Top 10");
+        topTenMAL.setPreferredSize(new Dimension(170, 100));
+        JButton topTenEnjoyment = new JButton("My Top 10");
+        topTenEnjoyment.setPreferredSize(new Dimension(170, 100));
+        JButton alphabetized = new JButton("Alphabetized");
+        alphabetized.setPreferredSize(new Dimension(170, 100));
 
         // bottom panel that contains buttons
-        JPanel bottom = new JPanel();
+        JPanel bottom = new JPanel(new GridLayout(2, 1));
         bottom.setPreferredSize(new Dimension(600, 330));
         bottom.setBackground(Color.WHITE);
-        bottom.add(randomize, BorderLayout.CENTER);
-        bottom.add(customSearch, BorderLayout.CENTER);
-        bottom.add(seeList, BorderLayout.CENTER);
+        JPanel botTop = new JPanel();
+        JPanel botBot = new JPanel();
+        botTop.add(randomize);
+        botTop.add(customSearch);
+        botTop.add(seeList);
+        botBot.add(topTenMAL);
+        botBot.add(topTenEnjoyment);
+        botBot.add(alphabetized);
+        bottom.add(botTop);
+        bottom.add(botBot);
 
         contents.add(top, BorderLayout.NORTH);
         contents.add(searchFeature, BorderLayout.CENTER);
@@ -188,7 +237,13 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         });
 
         randomize.addActionListener(e -> { // enacts looking at all anime algorithm
+            System.out.println("It worked - RANDOMIZE");
             randomize(openingPage, searchInput.getText());
+        });
+
+        topTenEnjoyment.addActionListener(e -> { // enacts looking at all anime algorithm
+            System.out.println("It worked - ENJOYMENT");
+            findTopTenEnjoyment(openingPage, searchInput.getText());
         });
 
         seeList.addActionListener(e -> { // enacts looking at all anime algorithm
@@ -210,6 +265,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             titleBar = "All Anime in Database";
         } else if (type.equals("SEARCH")) {
             titleBar = "Search Results for '" + searchedWord + "'";
+        } else if (type.equals("ENJOYMENT")) {
+            titleBar = "Top 10 Anime by Enjoyment Rating";
         }
         JFrame searchResults = new JFrame(titleBar);
         searchResults.setSize(600, 550);
