@@ -91,7 +91,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 allGenres = allGenres + ", ";
             }
         }
-
         return allGenres;
     }
 
@@ -103,6 +102,29 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         openingPage.setVisible(false);
         System.out.println("It worked - RANDOM");
         showAnimePanel(matchingIndexes, searchedWord, openingPage, true, "RANDOM");
+    }
+
+    public static void alphabetize(JFrame openingPage, String searchedWord) {
+        String[] names = new String[list.size()];
+
+        for (int i = 0; i < list.size(); i++) {
+            names[i] = list.get(i).getName();
+        }
+        Arrays.sort(names);
+        System.out.println(Arrays.toString(names));
+
+        ArrayList<Integer> topTenInt = new ArrayList<>();
+        for (String s: names) {
+            int x = 0;
+            for (Anime anime: list) {
+                if (anime.getName().equals(s)) {
+                    topTenInt.add(x);
+                } else {
+                    x++;
+                }
+            }
+        }
+        showAnimePanel(topTenInt, searchedWord, openingPage, false, "ALPHABETIZE");
     }
 
     public static void findTopTenEnjoyment(JFrame openingPage, String searchedWord) { // find the top 10 most enjoyed anime in the database
@@ -138,7 +160,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 }
             }
         }
-        showAnimePanel(topTenInt, searchedWord, openingPage, true, "ENJOYMENT");
+        showAnimePanel(topTenInt, searchedWord, openingPage, false, "ENJOYMENT");
     }
 
     public static void main(String[] args) {
@@ -241,7 +263,12 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             randomize(openingPage, searchInput.getText());
         });
 
-        topTenEnjoyment.addActionListener(e -> { // enacts looking at all anime algorithm
+        alphabetized.addActionListener(e -> { // alphabetizes anime by English name
+            System.out.println("It worked - ALPHABETIZED");
+            alphabetize(openingPage, searchInput.getText());
+        });
+
+        topTenEnjoyment.addActionListener(e -> { // enacts top 10 enjoyed anime algorithm
             System.out.println("It worked - ENJOYMENT");
             findTopTenEnjoyment(openingPage, searchInput.getText());
         });
@@ -267,6 +294,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             titleBar = "Search Results for '" + searchedWord + "'";
         } else if (type.equals("ENJOYMENT")) {
             titleBar = "Top 10 Anime by Enjoyment Rating";
+        } else if (type.equals("ALPHABETIZE")) {
+            titleBar = "Alphabetized List of Anime";
         }
         JFrame searchResults = new JFrame(titleBar);
         searchResults.setSize(600, 550);
