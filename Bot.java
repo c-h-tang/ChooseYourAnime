@@ -13,10 +13,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         super(name);
     }
 
-    public static String toImageFormat(String imageName) {
-        return "Images/" + imageName;
-    }
-
     public static void test() { // lists out all the information collected in ArrayList<Anime> for each line in data.txt
         for (int i = 0; i < list.size(); i++) {
             System.out.printf("Name: %s\n", list.get(i).getName());
