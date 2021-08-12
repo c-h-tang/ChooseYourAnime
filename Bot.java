@@ -193,9 +193,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
         }
 
-        for(Anime a : list) {
-            System.out.println(a.getName() + " Average: " + a.getAverageMAL());
-        }
         Arrays.sort(averageMALRatings);
 
         double[] topTen = new double[10];
@@ -205,11 +202,9 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         }
         ArrayList<Anime> topTenMAL = new ArrayList<>();
         for (double av: topTen) {
-            System.out.println("Hi");
             for(Anime anime: list) {
                 if (!topTenMAL.contains(anime) && anime.getAverageMAL() == av) {
                     topTenMAL.add(anime);
-                    System.out.println(anime.getName());
                     break;
                 }
             }
@@ -226,7 +221,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 }
             }
         }
-        System.out.println(topTenInt);
         showAnimePanel(topTenInt, searchedWord, openingPage, false, "MAL");
     }
 
