@@ -99,6 +99,15 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         return allGenres;
     }
 
+    public static void randomize(JFrame openingPage, String searchedWord) {
+        ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
+        Random rand = new Random();
+        int randomInteger = rand.nextInt(list.size());
+        matchingIndexes.add(randomInteger);
+        openingPage.setVisible(false);
+        System.out.println("It worked - RANDOM");
+        showAnimePanel(matchingIndexes, searchedWord, openingPage, true, "RANDOM");
+    }
 
     public static void main(String[] args) {
         collectData();
@@ -177,19 +186,13 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             } else {
                 openingPage.setVisible(false);
                 System.out.println("It worked - SEARCH");
-                showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
+                showAnimePanel(matchingIndexes, searchInput.getText(), openingPage, false, "SEARCH");
                 searchInput.setText("");
             }
         });
 
         randomize.addActionListener(e -> { // enacts looking at all anime algorithm
-            ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
-            Random rand = new Random();
-            int randomInteger = rand.nextInt(list.size());
-            matchingIndexes.add(randomInteger);
-            openingPage.setVisible(false);
-            System.out.println("It worked - RANDOM");
-            showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
+            randomize(openingPage, searchInput.getText());
         });
 
         seeList.addActionListener(e -> { // enacts looking at all anime algorithm
@@ -199,12 +202,20 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
             openingPage.setVisible(false);
             System.out.println("It worked - ALL");
-            showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
+            showAnimePanel(matchingIndexes, searchInput.getText(), openingPage, false, "ALL");
         });
     }
 
-    public static void showAnimePanel(ArrayList<Integer> matchingIndexes, String searchedWord, JFrame openingPage) { // shows anime info in grid-like fashion
-        JFrame searchResults = new JFrame("Search Results for " + "'" + searchedWord + "'");
+    public static void showAnimePanel(ArrayList<Integer> matchingIndexes, String searchedWord, JFrame openingPage, boolean random, String type) { // shows anime info in grid-like fashion
+        String titleBar = "";
+        if (type.equals("RANDOM")) {
+            titleBar = "Random Anime Found: " + list.get(matchingIndexes.get(0)).getName();
+        } else if (type.equals("ALL")) {
+            titleBar = "All Anime in Database";
+        } else if (type.equals("SEARCH")) {
+            titleBar = "Search Results for '" + searchedWord + "'";
+        }
+        JFrame searchResults = new JFrame(titleBar);
         searchResults.setSize(600, 550);
         searchResults.setVisible(true);
         searchResults.setLocationRelativeTo(null);
@@ -350,10 +361,16 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         // button to return to home
         JButton backButton = new JButton("Back to Home");
+        JButton randomizeButton = new JButton("Randomize");
 
         backButton.addActionListener(e2 -> {
             searchResults.dispose();
             openingPage.setVisible(true);
+        });
+
+        randomizeButton.addActionListener(e2 -> {
+            searchResults.dispose();
+            randomize(openingPage, searchedWord);
         });
 
         middle.removeAll();
@@ -377,6 +394,9 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         JPanel upper = new JPanel();  // top portion of frame
         upper.add(backButton, BorderLayout.WEST);
+        if (random) {
+            upper.add(randomizeButton);
+        }
         contents2.add(upper, BorderLayout.NORTH);
         contents2.revalidate();
         searchResults.revalidate();
