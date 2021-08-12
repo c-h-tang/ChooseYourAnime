@@ -6,3 +6,6 @@ The program displays basic information such as the number of episodes, seasons, 
 ## Installation
 
 ## Usage
+
+## Anime Additions
+If there are specific animes you would like added to the program, I would love to add them, so please contact me at ctang500@gmail with the name of the anime and its MAL webpage.  This will allow me to quickly find the information necessary to add its contents to the program.  Thank you.  
