@@ -163,6 +163,73 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         showAnimePanel(topTenInt, searchedWord, openingPage, false, "ENJOYMENT");
     }
 
+    public static void findTopTenMAL(JFrame openingPage, String searchedWord) { // finds top 10 anime based on series MAL rating
+        double[] averageMALRatings = new double[list.size()];
+        int i = 0;
+
+        for (Anime a: list) {
+            if (a.getMalRating().length == 1) {
+                averageMALRatings[i++] = Double.parseDouble(a.getMalRating()[0]);
+                a.setAverageMAL(Double.parseDouble(a.getMalRating()[0]));
+            } else {
+                double total = 0;
+                int denom = 0;
+                for(int j = 0; j < a.getMalRating().length; j++) {
+                    if (!a.getMalRating()[j].contains(" ")) {
+                        total += Double.parseDouble(a.getMalRating()[j]);
+                        denom++;
+                    } else {
+                        String[] s = a.getMalRating()[j].split(" ");
+                        for (int x = 0; x < 2; x++) {
+                            total += Double.parseDouble(s[x]);
+                            denom++;
+                        }
+                    }
+                }
+                double average = total / denom;
+                double roundedAverage = Double.parseDouble(String.format("%.3f", average));
+                averageMALRatings[i++] = roundedAverage;
+                a.setAverageMAL(roundedAverage);
+            }
+        }
+
+        for(Anime a : list) {
+            System.out.println(a.getName() + " Average: " + a.getAverageMAL());
+        }
+        Arrays.sort(averageMALRatings);
+
+        double[] topTen = new double[10];
+
+        for (int k = 0; k < 10; k++) {
+            topTen[k] = averageMALRatings[averageMALRatings.length - 1 - k];
+        }
+        ArrayList<Anime> topTenMAL = new ArrayList<>();
+        for (double av: topTen) {
+            System.out.println("Hi");
+            for(Anime anime: list) {
+                if (!topTenMAL.contains(anime) && anime.getAverageMAL() == av) {
+                    topTenMAL.add(anime);
+                    System.out.println(anime.getName());
+                    break;
+                }
+            }
+        }
+
+        ArrayList<Integer> topTenInt = new ArrayList<>();
+        for (Anime an: topTenMAL) {
+            int x = 0;
+            for (Anime anime: list) {
+                if (anime == an) {
+                    topTenInt.add(x);
+                } else {
+                    x++;
+                }
+            }
+        }
+        System.out.println(topTenInt);
+        showAnimePanel(topTenInt, searchedWord, openingPage, false, "MAL");
+    }
+
     public static void main(String[] args) {
         collectData();
         // test();
@@ -273,6 +340,11 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             findTopTenEnjoyment(openingPage, searchInput.getText());
         });
 
+        topTenMAL.addActionListener(e -> { // enacts top 10 enjoyed anime algorithm
+            System.out.println("It worked - MAL");
+            findTopTenMAL(openingPage, searchInput.getText());
+        });
+
         seeList.addActionListener(e -> { // enacts looking at all anime algorithm
             ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
             for (int i = 0; i < list.size(); i++) {
@@ -296,6 +368,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             titleBar = "Top 10 Anime by Enjoyment Rating";
         } else if (type.equals("ALPHABETIZE")) {
             titleBar = "Alphabetized List of Anime";
+        } else if (type.equals("MAL")) {
+            titleBar = "Top 10 Anime by MyAnimeList Rating";
         }
         JFrame searchResults = new JFrame(titleBar);
         searchResults.setSize(600, 550);

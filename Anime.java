@@ -14,6 +14,7 @@ public class Anime { // anime Objects that contain basic information about anime
     private boolean filler; // whether the series contains filler, or non-canon, episodes
     private String malURL; // URL link to MAL database for extra information
     private String gogoanimeURL; // URL link to watch anime starting at season 1
+    private double averageMAL;
     // private int whenToDrop; // denotes at what episode the anime should be dropped if the user doesn't like it so far (based on personal experience)
 
     public Anime (String name) { // creates an Anime Object with just a name, other data is left blank and will be filled after Object creation
@@ -33,6 +34,7 @@ public class Anime { // anime Objects that contain basic information about anime
         this.filler = false;
         this.malURL = "";
         this.gogoanimeURL = "";
+        this.averageMAL = 0;
         // this.whenToDrop = 0;
     }
 
@@ -152,5 +154,13 @@ public class Anime { // anime Objects that contain basic information about anime
 
     public void setGogoanimeURL(String url) {
         this.gogoanimeURL = url;
+    }
+
+    public double getAverageMAL() {
+        return averageMAL;
+    }
+
+    public void setAverageMAL(double average) {
+        this.averageMAL = average;
     }
 }
