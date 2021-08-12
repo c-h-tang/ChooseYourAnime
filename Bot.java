@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Bot extends Anime { // where the GUI is created and the user interacts with the program
     private static ArrayList<Anime> list = new ArrayList<>(); // list of Anime objects
@@ -179,6 +180,16 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
                 searchInput.setText("");
             }
+        });
+
+        randomize.addActionListener(e -> { // enacts looking at all anime algorithm
+            ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
+            Random rand = new Random();
+            int randomInteger = rand.nextInt(list.size());
+            matchingIndexes.add(randomInteger);
+            openingPage.setVisible(false);
+            System.out.println("It worked - RANDOM");
+            showAnimePanel(matchingIndexes, searchInput.getText(), openingPage);
         });
 
         seeList.addActionListener(e -> { // enacts looking at all anime algorithm
