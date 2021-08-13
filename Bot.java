@@ -66,6 +66,13 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 line = bfr.readLine();
             }
 
+            BufferedReader b = new BufferedReader(new FileReader("fillerFile.txt"));
+            String lineRead = b.readLine();
+            int i = 0;
+            while(lineRead != null) {
+                lineRead = b.readLine();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
