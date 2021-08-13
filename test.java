@@ -455,19 +455,17 @@ public class test extends Anime { // where the GUI is created and the user inter
             // right side
             // text that shows summary/synopsis
             JTextArea synopsis = new JTextArea("Summary: " + list.get(num).getSummary());
-            synopsis.setPreferredSize(new Dimension(250, 95));
+            synopsis.setPreferredSize(new Dimension(250, 65));
             synopsis.setLineWrap(true);
             synopsis.setWrapStyleWord(true);
             synopsis.setEditable(false);
-            Border border = BorderFactory.createLineBorder(Color.BLUE, 1);
-            synopsis.setBorder(border);
             synopsis.setFont(new Font("Serif", Font.BOLD, 14));
 
             // text that shows genres
             String allGenres = "";
             allGenres = showAllGenres(list.get(num));
             JTextArea genres = new JTextArea(allGenres);
-            genres.setPreferredSize(new Dimension(250, 20));
+            genres.setPreferredSize(new Dimension(250, 6));
             genres.setLineWrap(true);
             genres.setWrapStyleWord(true);
             genres.setEditable(false);
@@ -483,7 +481,7 @@ public class test extends Anime { // where the GUI is created and the user inter
 
             // text that shows filler episodes (if applicable)
             JTextArea filler = new JTextArea("Filler: " + list.get(num).getFillerEpisodes());
-            filler.setPreferredSize(new Dimension(250, 25));
+            filler.setPreferredSize(new Dimension(250, 50));
             filler.setLineWrap(true);
             filler.setWrapStyleWord(true);
             filler.setEditable(false);

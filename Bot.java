@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
@@ -30,6 +31,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             System.out.printf("Filler: %s\n", list.get(i).getFiller());
             System.out.printf("MAL Link: %s\n", list.get(i).getMALURL());
             System.out.printf("Gogoanime Link: %s\n", list.get(i).getGogoanimeURL());
+            System.out.println("Summary: " + list.get(i).getSummary());
+            System.out.println("Filler Episodes: " + list.get(i).getFillerEpisodes());
             System.out.println("\n\n");
         }
     }
@@ -67,10 +70,19 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
 
             BufferedReader b = new BufferedReader(new FileReader("fillerFile.txt"));
-            String lineRead = b.readLine();
+            String fillerLine = b.readLine();
             int i = 0;
-            while(lineRead != null) {
-                lineRead = b.readLine();
+            while(fillerLine != null) {
+                list.get(i++).setFillerEpisodes(fillerLine);
+                fillerLine = b.readLine();
+            }
+
+            BufferedReader bf = new BufferedReader(new FileReader("summaryFile.txt"));
+            String summaryLine = b.readLine();
+            int x = 0;
+            while(summaryLine != null) {
+                list.get(x++).setSummary(summaryLine);
+                summaryLine = bf.readLine();
             }
 
         } catch (IOException e) {
@@ -442,9 +454,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
             // right side
             // text that shows summary/synopsis
-            String t = "Synopsis: Hello, this is a fake synopsis that will contain real and accurate text depending on the anime shown. ccccccccccccccccccccccc ssssssssssssssssssssssssssssssss aa dddddd rrrrr tt t yyyyy";
-            JTextArea synopsis = new JTextArea(t);
-            synopsis.setPreferredSize(new Dimension(250, 95));
+            JTextArea synopsis = new JTextArea("Summary: " + list.get(num).getSummary());
+            synopsis.setPreferredSize(new Dimension(250, 65));
             synopsis.setLineWrap(true);
             synopsis.setWrapStyleWord(true);
             synopsis.setEditable(false);
@@ -454,23 +465,23 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             String allGenres = "";
             allGenres = showAllGenres(list.get(num));
             JTextArea genres = new JTextArea(allGenres);
-            genres.setPreferredSize(new Dimension(250, 25));
+            genres.setPreferredSize(new Dimension(250, 6));
             genres.setLineWrap(true);
             genres.setWrapStyleWord(true);
             genres.setEditable(false);
             genres.setFont(new Font("Serif", Font.BOLD, 14));
 
             // text that shows MAL and PE rating
-            JTextArea ratings = new JTextArea("\nMAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
-            ratings.setPreferredSize(new Dimension(250, 40));
+            JTextArea ratings = new JTextArea("MAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
+            ratings.setPreferredSize(new Dimension(250, 20));
             ratings.setLineWrap(true);
             ratings.setWrapStyleWord(true);
             ratings.setEditable(false);
             ratings.setFont(new Font("Serif", Font.BOLD, 14));
 
             // text that shows filler episodes (if applicable)
-            JTextArea filler = new JTextArea("\nFiller: N/A");
-            filler.setPreferredSize(new Dimension(250, 25));
+            JTextArea filler = new JTextArea("Filler: " + list.get(num).getFillerEpisodes());
+            filler.setPreferredSize(new Dimension(250, 50));
             filler.setLineWrap(true);
             filler.setWrapStyleWord(true);
             filler.setEditable(false);
