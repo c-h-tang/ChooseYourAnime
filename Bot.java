@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
@@ -304,10 +305,12 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         JPanel leftMiddlePanel = new JPanel(new GridLayout(4, 1));
         leftMiddlePanel.setPreferredSize(new Dimension(100, 350));
         leftMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.YELLOW));
+        leftMiddlePanel.setBackground(Color.WHITE);
 
         JButton mainGenreButton = new JButton("Main Genre");
         mainGenreButton.setToolTipText("Selected main genres will turn blue to indicate selection.");
         JButton subgenreButton = new JButton("Subgenre");
+        subgenreButton.setToolTipText("Selected subgenres will turn gray to indicate selection.");
         String text = "Type Selected: ";
         JLabel status = new JLabel(text);
         JButton clear = new JButton("Clear");
@@ -330,10 +333,16 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             status.setText("Type Selected: Subgenre");
         });
 
-        JPanel middleMiddlePanel = new JPanel();
-     ///   middleMiddlePanel.setLayout(new BoxLayout(leftMiddlePanel, BoxLayout.Y_AXIS));
+        JPanel middleMiddlePanel = new JPanel(new GridLayout(2, 1));
         middleMiddlePanel.setPreferredSize(new Dimension(100, 350));
+        middleMiddlePanel.setBackground(Color.white);
         middleMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
+
+        JTextArea genreText = new JTextArea("Main Genres Selected: ");
+        JTextArea subgenreText = new JTextArea("Subgenres Selected: ");
+
+        middleMiddlePanel.add(genreText, BorderLayout.NORTH);
+        middleMiddlePanel.add(subgenreText, BorderLayout.CENTER);
         topPanel.add(middleMiddlePanel);
 
         JPanel rightMiddlePanel = new JPanel();
@@ -343,7 +352,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         topPanel.add(rightMiddlePanel);
 
         JPanel bottomPanel = new JPanel(); // panel for genre buttons at the bottom of the window
-        bottomPanel.setLayout(new GridLayout(9, 4));
+        bottomPanel.setLayout(new GridLayout(8, 4));
         bottomPanel.setPreferredSize(new Dimension(250, 350));
         bottomPanel.setBackground(Color.WHITE);
 
@@ -454,31 +463,55 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                     if (selectedMainGenres.size() < 3 && mainGenre.get()) {
                         if(b.getBackground().equals(new Color(0, 78, 250))) {
                             normalizeButton(b, selectedMainGenres, k);
+                            String s = editGenreDisplay(selectedMainGenres);
+                            genreText.setText("Main Genres Selected: " + s);
                         } else {
                             b.setBackground(new Color(0, 78, 250));
                             b.setForeground(Color.WHITE);
                             selectedMainGenres.add(k);
+                            String s = editGenreDisplay(selectedMainGenres);
+                            genreText.setText("Main Genres Selected: " + s);
                         }
                     } else if (selectedMainGenres.size() == 3 && mainGenre.get()) {
                         if(b.getBackground().equals(new Color(0, 78, 250))) {
                             normalizeButton(b, selectedMainGenres, k);
+                            String s = editGenreDisplay(selectedMainGenres);
+                            genreText.setText("Main Genres Selected: " + s);
                         } else {
                             JOptionPane.showMessageDialog(null, "Too many main genres selected!", "Too many main genres!", JOptionPane.ERROR_MESSAGE);
                         }
                     } else if (selectedSubgenres.size() < 3 && subGenre.get()) {
                         if (b.getBackground().equals(Color.gray)) {
                             normalizeButton(b, selectedSubgenres, k);
+                            String s = editGenreDisplay(selectedSubgenres);
+                            subgenreText.setText("Subgenres Selected: " + s);
                         } else {
                             b.setBackground(Color.GRAY);
                             b.setForeground(Color.WHITE);
                             selectedSubgenres.add(k);
+                            String s = editGenreDisplay(selectedSubgenres);
+                            subgenreText.setText("Subgenres Selected:" + s);
                         }
                     } else if (selectedSubgenres.size() == 3 && subGenre.get()){
                         if (b.getBackground().equals(Color.gray)) {
                             normalizeButton(b, selectedSubgenres, k);
+                            String s = editGenreDisplay(selectedSubgenres);
+                            subgenreText.setText("Subgenres Selected:" + s);
                         } else {
                             JOptionPane.showMessageDialog(null, "Too many subgenres selected!", "Too many subgenres!", JOptionPane.ERROR_MESSAGE);
                         }
+                    }
+                });
+
+                clear.addActionListener(e2 -> {
+                    if(!b.getBackground().equals(new JButton().getBackground())) {
+                        normalizeButton(b, selectedMainGenres, k);
+                        normalizeButton(b, selectedSubgenres, k);
+                        selectedMainGenres.clear();
+                        selectedSubgenres.clear();
+                        String s = editGenreDisplay(selectedMainGenres);
+                        genreText.setText("Main Genres Selected: " + s);
+                        subgenreText.setText("Subgenres Selected: " + s);
                     }
                 });
 
@@ -514,12 +547,18 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         genreSelection.revalidate();
     }
 
+    public static String editGenreDisplay(ArrayList<String> a) {
+        String s = "\n";
+        for (String str : a) {
+            s = s + str + "\n";
+        }
+        return s;
+    }
+
     public static void normalizeButton(JButton b, ArrayList<String> a, String key) {
         b.setBackground(new JButton().getBackground());
         b.setForeground(null);
-        System.out.println(a);
         a.remove(key);
-        System.out.println(a);
     }
 
     public static void updateHashmapAndTreeMap() {
