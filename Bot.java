@@ -305,6 +305,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         JPanel leftMiddlePanel = new JPanel(new GridLayout(4, 1));
         leftMiddlePanel.setPreferredSize(new Dimension(100, 350));
         leftMiddlePanel.setBackground(Color.WHITE);
+        leftMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
         JButton mainGenreButton = new JButton("Main Genre");
         mainGenreButton.setToolTipText("Selected main genres will turn blue to indicate selection.");
@@ -336,6 +337,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         JPanel middleMiddlePanel = new JPanel(new GridLayout(2, 1));
         middleMiddlePanel.setPreferredSize(new Dimension(100, 350));
         middleMiddlePanel.setBackground(Color.white);
+        middleMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
         JTextArea genreText = new JTextArea("Main Genres Selected: ");
         JTextArea subgenreText = new JTextArea("Subgenres Selected: ");
@@ -351,6 +353,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         JPanel throwaway2 = new JPanel();
         throwaway2.setBackground(Color.white);
         rightMiddlePanel.setPreferredSize(new Dimension(100, 350));
+        rightMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+
 
         JButton customSearch = new JButton("Specific Search");
         customSearch.setToolTipText("Find anime with the specified genres and subgenres");
