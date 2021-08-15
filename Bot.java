@@ -1,14 +1,15 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Bot extends Anime { // where the GUI is created and the user interacts with the program
     private static ArrayList<Anime> list = new ArrayList<>(); // list of Anime objects
+    private static HashMap<String, Integer> map = new HashMap<String, Integer>();
+    private static TreeMap<String, Integer> sorted = new TreeMap<>();
+
+
 
     public Bot (String name) {
         super(name);
@@ -243,9 +244,140 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         showAnimePanel(topTenInt, searchedWord, openingPage, false, "MAL");
     }
 
+    public static void chooseGenres(JFrame openingPage, String searchedWord) {
+        openingPage.setVisible(false);
+
+        JFrame genreSelection = new JFrame("Genre Selection");
+        genreSelection.setSize(600, 550);
+        genreSelection.setVisible(true);
+        genreSelection.setLocationRelativeTo(null);
+        genreSelection.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        genreSelection.setResizable(false);
+        Container contents2 = genreSelection.getContentPane();
+        contents2.setLayout(new BorderLayout());
+        genreSelection.setIconImage(new ImageIcon("Images/Spike.jpg").getImage());
+
+        GridLayout animeGrid = new GridLayout(0, 1,
+                0, 5); // grid for holding comments
+
+        JPanel panel = new JPanel(animeGrid);  // panel for holding grid
+
+        JPanel middle = new JPanel();   // middle portion of frame
+        JPanel overall = new JPanel(); // entire layout of each anime panel
+        overall.setLayout(new BoxLayout(overall, BoxLayout.Y_AXIS));
+
+        JPanel first = new JPanel();
+        first.setBackground(Color.white);
+        first.setPreferredSize((new Dimension(520, 50)));
+        first.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+
+        JPanel second = new JPanel(new GridLayout(2, 1));
+        second.setPreferredSize(new Dimension(520, 350));
+        second.setBackground(Color.WHITE);
+        second.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+
+        JLabel title = new JLabel("Select Up to 3 Genres and 3 Subgenres");
+        title.setFont(new Font("Serif", Font.PLAIN, 25));
+        title.setForeground(Color.BLACK);
+        first.add(title, BorderLayout.NORTH);
+
+        JLabel subtitle = new JLabel("We recommend 2 genres and 2 subgenres to broaden your search");
+        subtitle.setFont(new Font("Serif", Font.PLAIN, 18));
+        subtitle.setForeground(Color.BLACK);
+        first.add(subtitle, BorderLayout.CENTER);
+
+        JPanel topPanel = new JPanel(); // panel for middle portion of the window where it shows you the genres selected and specifications
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+        topPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        topPanel.setPreferredSize(new Dimension(300, 350));
+        topPanel.setBackground(Color.RED);
+
+        JPanel bottomPanel = new JPanel(); // panel for genre buttons at the bottom of the window
+        bottomPanel.setLayout(new GridLayout(7, 5));
+        bottomPanel.setPreferredSize(new Dimension(250, 350));
+        bottomPanel.setBackground(Color.WHITE);
+
+        sorted.forEach((k, v) -> {
+            if (!k.equals("")) {
+                JButton b = new JButton(String.format("%s [%d]", k, v));
+
+                switch (k) {
+                    case "Action":
+                        b.setToolTipText("A popular genre that features conflict in the form of guns, blades, fists, mysterious powers, etc that is displayed with visually stunning fight animation.");
+                        break;
+                    case "Adventure":
+                        b.setToolTipText("A genre where characters embark on a journey to explore the world or to search for something, oftentimes meeting new people, encountering hardships, and discovering about themselves along the way");
+                        break;
+                    case "Comedy":
+                        b.setToolTipText("A genre of fiction that features jokes, misunderstandings, and humorous situations intended to make an audience laugh.");
+                        break;
+                    case "Demons":
+                        b.setToolTipText("A genre where demons, the embodiment or evil and the worst fears of humanity, are main characters in the story.  These demons may depicted in humorous contexts and may not adhere to their standard trope");
+                        break;
+                }
+
+                bottomPanel.add(b);
+            }
+        });
+
+        // left side
+
+        second.add(topPanel);
+        second.add(bottomPanel);
+        overall.add(first);
+        overall.add(second);
+        panel.add(overall);
+
+        // button to return to home
+        JButton backButton = new JButton("Back to Home");
+
+        backButton.addActionListener(e2 -> {
+            genreSelection.dispose();
+            openingPage.setVisible(true);
+        });
+
+        middle.removeAll();
+        middle.add(panel);
+
+        JPanel upper = new JPanel();  // top portion of frame
+        upper.add(backButton, BorderLayout.WEST);
+
+        contents2.add(upper, BorderLayout.NORTH);
+        contents2.add(panel);
+        contents2.revalidate();
+        genreSelection.revalidate();
+    }
+
+    public static void updateHashmapAndTreeMap() {
+        for(Anime a : list) {
+            for(String genre : a.getMainGenre()) {
+                if (map.containsKey(genre)) {
+                    map.put(genre, map.get(genre) + 1);
+                } else {
+                    map.put(genre, 1);
+                }
+            }
+            for(String subgenre : a.getSubgenres()) {
+                if (map.containsKey(subgenre)) {
+                    map.put(subgenre, map.get(subgenre) + 1);
+                } else {
+                    map.put(subgenre, 1);
+                }
+            }
+            sorted.putAll(map);
+        }
+
+        for (String genre: map.keySet()) {
+            System.out.println(genre + ": " + map.get(genre));
+        }
+        System.out.println(map.size());
+    }
+
+
     public static void main(String[] args) {
         collectData();
         // test();
+        updateHashmapAndTreeMap();
 
         // initializes frame for opening page //
         JFrame openingPage = new JFrame("Choose Your Anime");
@@ -284,8 +416,8 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         //buttons on opening page
         JButton randomize = new JButton("Randomize");
         randomize.setPreferredSize(new Dimension(170, 100));
-        JButton customSearch = new JButton("Genre Search");
-        customSearch.setPreferredSize(new Dimension(170, 100));
+        JButton genreButton = new JButton("Genre Search");
+        genreButton.setPreferredSize(new Dimension(170, 100));
         JButton seeList = new JButton("See All");
         seeList.setPreferredSize(new Dimension(170, 100));
         JButton topTenMAL = new JButton("MAL's Top 10");
@@ -302,7 +434,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         JPanel botTop = new JPanel();
         JPanel botBot = new JPanel();
         botTop.add(randomize);
-        botTop.add(customSearch);
+        botTop.add(genreButton);
         botTop.add(seeList);
         botBot.add(topTenMAL);
         botBot.add(topTenEnjoyment);
@@ -341,6 +473,11 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         randomize.addActionListener(e -> { // enacts looking at all anime algorithm
             System.out.println("It worked - RANDOMIZE");
             randomize(openingPage, searchInput.getText());
+        });
+
+        genreButton.addActionListener(e -> { // takes user to page to select preferred genres
+            System.out.println("It worked - GENRE");
+            chooseGenres(openingPage, searchInput.getText());
         });
 
         alphabetized.addActionListener(e -> { // alphabetizes anime by English name
