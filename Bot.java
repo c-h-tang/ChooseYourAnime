@@ -122,7 +122,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         int randomInteger = rand.nextInt(list.size());
         matchingIndexes.add(randomInteger);
         openingPage.setVisible(false);
-        System.out.println("It worked - RANDOM");
         showAnimePanel(matchingIndexes, searchedWord, openingPage, true, "RANDOM");
     }
 
@@ -133,7 +132,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             names[i] = list.get(i).getName();
         }
         Arrays.sort(names);
-        System.out.println(Arrays.toString(names));
 
         ArrayList<Integer> topTenInt = new ArrayList<>();
         for (String s: names) {
@@ -365,8 +363,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             int genreNum = selectedMainGenres.size();
             int subgenreNum = selectedSubgenres.size();
             boolean containsMainGenres = false;
-
-            System.out.println("GenreNum: " + genreNum + "\n" + "SubgenreNum: " + subgenreNum);
 
             for (Anime a : list) {
                 if (genreNum == 0) {
@@ -618,11 +614,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
             sorted.putAll(map);
         }
-
-        for (String genre: map.keySet()) {
-            System.out.println(genre + ": " + map.get(genre));
-        }
-        System.out.println(map.size());
     }
 
 
@@ -706,7 +697,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             for (Anime a : list) {
                 if (a.getName().toLowerCase().contains(String.valueOf(searchInput.getText().toLowerCase())) || a.getJapName().toLowerCase().contains(String.valueOf(searchInput.getText().toLowerCase()))) {
                     matchingIndexes.add(list.indexOf(a));
-                    System.out.println("Added " + a.getName());
                     inDatabase = true;
                 }
             }
@@ -716,34 +706,28 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 searchInput.setText("");
             } else {
                 openingPage.setVisible(false);
-                System.out.println("It worked - SEARCH");
                 showAnimePanel(matchingIndexes, searchInput.getText(), openingPage, false, "SEARCH");
                 searchInput.setText("");
             }
         });
 
         randomize.addActionListener(e -> { // enacts looking at all anime algorithm
-            System.out.println("It worked - RANDOMIZE");
             randomize(openingPage, searchInput.getText());
         });
 
         genreButton.addActionListener(e -> { // takes user to page to select preferred genres
-            System.out.println("It worked - GENRE");
             chooseGenres(openingPage, searchInput.getText());
         });
 
         alphabetized.addActionListener(e -> { // alphabetizes anime by English name
-            System.out.println("It worked - ALPHABETIZED");
             alphabetize(openingPage, searchInput.getText());
         });
 
         topTenEnjoyment.addActionListener(e -> { // enacts top 10 enjoyed anime algorithm
-            System.out.println("It worked - ENJOYMENT");
             findTopTenEnjoyment(openingPage, searchInput.getText());
         });
 
         topTenMAL.addActionListener(e -> { // enacts top 10 enjoyed anime algorithm
-            System.out.println("It worked - MAL");
             findTopTenMAL(openingPage, searchInput.getText());
         });
 
@@ -753,7 +737,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 matchingIndexes.add(i);
             }
             openingPage.setVisible(false);
-            System.out.println("It worked - ALL");
             showAnimePanel(matchingIndexes, searchInput.getText(), openingPage, false, "ALL");
         });
     }
