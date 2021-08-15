@@ -3,6 +3,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.URI;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Bot extends Anime { // where the GUI is created and the user interacts with the program
     private static ArrayList<Anime> list = new ArrayList<>(); // list of Anime objects
@@ -245,6 +246,11 @@ public class Bot extends Anime { // where the GUI is created and the user intera
     }
 
     public static void chooseGenres(JFrame openingPage, String searchedWord) {
+        ArrayList<String> selectedMainGenres = new ArrayList<>();
+        ArrayList<String> selectedSubgenres = new ArrayList<>();
+        AtomicBoolean mainGenre = new AtomicBoolean(false);
+        AtomicBoolean subGenre = new AtomicBoolean(false);
+
         openingPage.setVisible(false);
 
         JFrame genreSelection = new JFrame("Genre Selection");
@@ -291,11 +297,50 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         directions.setForeground(Color.BLACK);
         first.add(directions, BorderLayout.SOUTH);
 
-        JPanel topPanel = new JPanel(); // panel for middle portion of the window where it shows you the genres selected and specifications
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
-        topPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel topPanel = new JPanel(new GridLayout(1, 3)); // panel for middle portion of the window where it shows you the genres selected and specifications
         topPanel.setPreferredSize(new Dimension(300, 350));
         topPanel.setBackground(Color.RED);
+
+        JPanel leftMiddlePanel = new JPanel(new GridLayout(4, 1));
+        leftMiddlePanel.setPreferredSize(new Dimension(100, 350));
+        leftMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.YELLOW));
+
+        JButton mainGenreButton = new JButton("Main Genre");
+        mainGenreButton.setToolTipText("Selected main genres will turn blue to indicate selection.");
+        JButton subgenreButton = new JButton("Subgenre");
+        String text = "Type Selected: ";
+        JLabel status = new JLabel(text);
+        JButton clear = new JButton("Clear");
+
+        leftMiddlePanel.add(mainGenreButton);
+        leftMiddlePanel.add(subgenreButton);
+        leftMiddlePanel.add(status);
+        leftMiddlePanel.add(clear);
+        topPanel.add(leftMiddlePanel);
+
+        mainGenreButton.addActionListener(e2 -> {
+            mainGenre.set(true);
+            subGenre.set(false);
+            status.setText("Type Selected: Main Genre");
+        });
+
+        subgenreButton.addActionListener(e2 -> {
+            subGenre.set(true);
+            mainGenre.set(false);
+            status.setText("Type Selected: Subgenre");
+        });
+
+        JPanel middleMiddlePanel = new JPanel();
+     ///   middleMiddlePanel.setLayout(new BoxLayout(leftMiddlePanel, BoxLayout.Y_AXIS));
+        middleMiddlePanel.setPreferredSize(new Dimension(100, 350));
+        middleMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
+        topPanel.add(middleMiddlePanel);
+
+        JPanel rightMiddlePanel = new JPanel();
+  //      rightMiddlePanel.setLayout(new BoxLayout(rightMiddlePanel, BoxLayout.Y_AXIS));
+        rightMiddlePanel.setPreferredSize(new Dimension(100, 350));
+        rightMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
+        topPanel.add(rightMiddlePanel);
 
         JPanel bottomPanel = new JPanel(); // panel for genre buttons at the bottom of the window
         bottomPanel.setLayout(new GridLayout(9, 4));
@@ -405,6 +450,38 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                         break;
                 }
 
+                b.addActionListener(e2 -> {
+                    if (selectedMainGenres.size() < 3 && mainGenre.get()) {
+                        if(b.getBackground().equals(new Color(0, 78, 250))) {
+                            normalizeButton(b, selectedMainGenres, k);
+                        } else {
+                            b.setBackground(new Color(0, 78, 250));
+                            b.setForeground(Color.WHITE);
+                            selectedMainGenres.add(k);
+                        }
+                    } else if (selectedMainGenres.size() == 3 && mainGenre.get()) {
+                        if(b.getBackground().equals(new Color(0, 78, 250))) {
+                            normalizeButton(b, selectedMainGenres, k);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Too many main genres selected!", "Too many main genres!", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else if (selectedSubgenres.size() < 3 && subGenre.get()) {
+                        if (b.getBackground().equals(Color.gray)) {
+                            normalizeButton(b, selectedSubgenres, k);
+                        } else {
+                            b.setBackground(Color.GRAY);
+                            b.setForeground(Color.WHITE);
+                            selectedSubgenres.add(k);
+                        }
+                    } else if (selectedSubgenres.size() == 3 && subGenre.get()){
+                        if (b.getBackground().equals(Color.gray)) {
+                            normalizeButton(b, selectedSubgenres, k);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Too many subgenres selected!", "Too many subgenres!", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+
                 bottomPanel.add(b);
             }
         });
@@ -435,6 +512,14 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         contents2.add(panel);
         contents2.revalidate();
         genreSelection.revalidate();
+    }
+
+    public static void normalizeButton(JButton b, ArrayList<String> a, String key) {
+        b.setBackground(new JButton().getBackground());
+        b.setForeground(null);
+        System.out.println(a);
+        a.remove(key);
+        System.out.println(a);
     }
 
     public static void updateHashmapAndTreeMap() {
