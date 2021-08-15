@@ -304,7 +304,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
 
         JPanel leftMiddlePanel = new JPanel(new GridLayout(4, 1));
         leftMiddlePanel.setPreferredSize(new Dimension(100, 350));
-        leftMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.YELLOW));
         leftMiddlePanel.setBackground(Color.WHITE);
 
         JButton mainGenreButton = new JButton("Main Genre");
@@ -314,6 +313,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         String text = "Type Selected: ";
         JLabel status = new JLabel(text);
         JButton clear = new JButton("Clear");
+        clear.setToolTipText("Clear all genres and subgenres.");
 
         leftMiddlePanel.add(mainGenreButton);
         leftMiddlePanel.add(subgenreButton);
@@ -336,7 +336,6 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         JPanel middleMiddlePanel = new JPanel(new GridLayout(2, 1));
         middleMiddlePanel.setPreferredSize(new Dimension(100, 350));
         middleMiddlePanel.setBackground(Color.white);
-        middleMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 
         JTextArea genreText = new JTextArea("Main Genres Selected: ");
         JTextArea subgenreText = new JTextArea("Subgenres Selected: ");
@@ -345,10 +344,110 @@ public class Bot extends Anime { // where the GUI is created and the user intera
         middleMiddlePanel.add(subgenreText, BorderLayout.CENTER);
         topPanel.add(middleMiddlePanel);
 
-        JPanel rightMiddlePanel = new JPanel();
-  //      rightMiddlePanel.setLayout(new BoxLayout(rightMiddlePanel, BoxLayout.Y_AXIS));
+        JPanel rightMiddlePanel = new JPanel(new GridLayout(5, 1));
+        rightMiddlePanel.setBackground(Color.white);
+        JPanel throwaway = new JPanel();
+        throwaway.setBackground(Color.white);
+        JPanel throwaway2 = new JPanel();
+        throwaway2.setBackground(Color.white);
         rightMiddlePanel.setPreferredSize(new Dimension(100, 350));
-        rightMiddlePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
+
+        JButton customSearch = new JButton("Specific Search");
+        customSearch.setToolTipText("Find anime with the specified genres and subgenres");
+        customSearch.setPreferredSize(new Dimension(100, 75));
+
+        customSearch.addActionListener(e2 -> {
+            ArrayList<Anime> aList = new ArrayList<>();
+            int genreNum = selectedMainGenres.size();
+            int subgenreNum = selectedSubgenres.size();
+            boolean containsMainGenres = false;
+
+            System.out.println("GenreNum: " + genreNum + "\n" + "SubgenreNum: " + subgenreNum);
+
+            for (Anime a : list) {
+                if (genreNum == 0) {
+                    containsMainGenres = true;
+                } else if (genreNum == 1) {
+                    if (Arrays.asList(a.getMainGenre()).contains(selectedMainGenres.get(0))) {
+                        containsMainGenres = true;
+                    } else {
+                        continue;
+                    }
+                } else if (genreNum == 2) {
+                    if (Arrays.asList(a.getMainGenre()).contains(selectedMainGenres.get(0)) && Arrays.asList(a.getMainGenre()).contains(selectedMainGenres.get(1))) {
+                        containsMainGenres = true;
+                    } else {
+                        continue;
+                    }
+                } else if(genreNum == 3) {
+                    if (Arrays.asList(a.getMainGenre()).contains(selectedMainGenres.get(0)) && Arrays.asList(a.getMainGenre()).contains(selectedMainGenres.get(1))
+                                            && Arrays.asList(a.getMainGenre()).contains(selectedMainGenres.get(2))) {
+                        containsMainGenres = true;
+                    } else {
+                        continue;
+                    }
+                }
+
+                if (containsMainGenres) {
+                    if (subgenreNum == 0) {
+                        aList.add(a);
+                    } else if (subgenreNum == 1) {
+                        if (Arrays.asList(a.getSubgenres()).contains(selectedSubgenres.get(0))) {
+                            aList.add(a);
+                        }
+                    } else if (subgenreNum == 2) {
+                        if (Arrays.asList(a.getSubgenres()).contains(selectedSubgenres.get(0)) && Arrays.asList(a.getSubgenres()).contains(selectedSubgenres.get(1))) {
+                            aList.add(a);
+                        }
+                    } else if(subgenreNum == 3) {
+                        if (Arrays.asList(a.getSubgenres()).contains(selectedSubgenres.get(0)) && Arrays.asList(a.getSubgenres()).contains(selectedSubgenres.get(1))
+                                && Arrays.asList(a.getSubgenres()).contains(selectedSubgenres.get(2))) {
+                            aList.add(a);
+                        }
+                    }
+                }
+            }
+            ArrayList<Integer> searchResults = new ArrayList<>();
+            for (Anime an: aList) {
+                int x = 0;
+                for (Anime anime: list) {
+                    if (anime == an) {
+                        searchResults.add(x);
+                    } else {
+                        x++;
+                    }
+                }
+            }
+
+            String allGenres = "";
+            boolean f = true;
+            for (String g : selectedMainGenres) {
+               if (f) {
+                   allGenres  = g;
+                   f = false;
+               } else {
+                   allGenres = allGenres + ", " + g;
+               }
+
+            }
+
+            for (String g : selectedSubgenres) {
+                if (f) {
+                    allGenres  = g;
+                    f = false;
+                } else {
+                    allGenres = allGenres + ", " +  g;
+                }
+            }
+
+            genreSelection.dispose();
+            showAnimePanel(searchResults, allGenres, openingPage, false, "GENRE");
+
+        });
+
+        rightMiddlePanel.add(throwaway);
+        rightMiddlePanel.add(throwaway2);
+        rightMiddlePanel.add(customSearch);
         topPanel.add(rightMiddlePanel);
 
         JPanel bottomPanel = new JPanel(); // panel for genre buttons at the bottom of the window
@@ -361,102 +460,38 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 JButton b = new JButton(String.format("%s [%d]", k, v));
 
                 switch (k) {
-                    case "Action":
-                        b.setToolTipText("A popular genre that features conflict in the form of guns, blades, fists, mysterious powers, etc that is displayed with visually stunning fight animation.");
-                        break;
-                    case "Adventure":
-                        b.setToolTipText("A genre where characters embark on a journey to explore the world or to search for something, oftentimes meeting new people, encountering hardships, and discovering about themselves along the way");
-                        break;
-                    case "Comedy":
-                        b.setToolTipText("A genre of fiction that features jokes, misunderstandings, and humorous situations intended to make an audience laugh.");
-                        break;
-                    case "Demons":
-                        b.setToolTipText("A genre where demons, the embodiment or evil and the worst fears of humanity, are main characters in the story.  These demons may depicted in humorous contexts and may not adhere to their standard trope");
-                        break;
-                    case "Drama":
-                        b.setToolTipText("As what “drama” connotes, it's something that is able to touch hearts and make feelings and emotions flow; they are also called tear-jerkers, feels-trains, and onion peelers among other names.");
-                        break;
-                    case "Ecchi":
-                        b.setToolTipText("A genre filled with sexual humor that arises due to romance or disunderstanding; typically aimed as teenage boys");
-                        break;
-                    case "Fantasy":
-                        b.setToolTipText("A genre that contains a multitude of fantastical elements such as magic, supernatural elements, and mysterious creatures that are depicted in mythology or folk tales; often set in distant or imaginary world.");
-                        break;
-                    case "Game":
-                        b.setToolTipText("A genre that focuses on various types of fames across many different genres; these games are often strategy based.");
-                        break;
-                    case "Harem":
-                        b.setToolTipText("A genre in which the main character has more than 2 romantic interests who actively pursue him/her.");
-                        break;
-                    case "Historical":
-                        b.setToolTipText("Set in a time period in Earth's past. The level of dedication to portraying the lifestyles, societies, and technologies of past periods and peoples accurately or believably can vary between different works.");
-                        break;
-                    case "Horror":
-                        b.setToolTipText("Horror anime create an atmosphere of unease.  Through eerie music and sounds, visceral or disturbing imagery, or startling moments, works of Horror make you worry about what gruesome thing is coming next.");
-                        break;
-                    case "Magic":
-                        b.setToolTipText("Magic is the use of some kind of supernatural power. Characters in Magic anime tend to go by titles such as witch, wizard, or mage and are occupied with learning to harness these abilities or fighting other magic users.");
-                        break;
-                    case "Martial Arts":
-                        b.setToolTipText("Martial arts are techniques that heavily involve training and are steeped in tradition. These techniques can have varied applications such as self-defense, psychological health or advanced use of weaponry, amongst others.");
-                        break;
-                    case "Military":
-                        b.setToolTipText("These anime have a strong military presence, be it on a national or intergalactic level, or showcase characters that are in the military.\n");
-                        break;
-                    case "Music":
-                        b.setToolTipText("These anime are all about the appreciation or performance of music, no matter the genre, or the skill level any musicians involved. Music lives in the soul of these characters!");
-                        break;
-                    case "Mystery":
-                        b.setToolTipText("Focuses on unresolved questions and efforts to answer them. Whether curious and deadly events are afoot, a strange or inexplicable world appears, etc, these characters are set on learning the truth.");
-                        break;
-                    case "Parody":
-                        b.setToolTipText("These anime imitate well known genres, styles or characters in an exaggerated, comedic manner to poke fun at them.");
-                        break;
-                    case "Police":
-                        b.setToolTipText("Police forces are responsible for upholding the justice of their nation and/or community. These anime follow uniformed men and women as they carry out their duties.");
-                        break;
-                    case "Psychological":
-                        b.setToolTipText("Psychological anime delve into mental or emotional states of a character in the midst of a difficult situation, letting you observe them change as tension increases.");
-                        break;
-                    case "Romance":
-                        b.setToolTipText("These anime showcase the joys and hardships of falling in love.  ");
-                        break;
-                    case "Samurai":
-                        b.setToolTipText("Samurai follow bushido, the classical Japanese warrior code, as a way of life, and hone their skill in combat to make their way in the world or perfect themselves.");
-                        break;
-                    case "School":
-                        b.setToolTipText("These anime showcase events that occur on a daily basis in a school, whether from the perspective of a student or of a teacher: friendships, fun, clubs, and all.");
-                        break;
-                    case "Sci-Fi":
-                        b.setToolTipText("Sci-fi, or science fiction, is a speculative genre which builds on imagination.  The genre commonly features humanity's inquisitiveness and innovation.");
-                        break;
-                    case "Seinen":
-                        b.setToolTipText("Seinen anime tends to be of a more violent and/or psychological nature than shounen series; aimed at young men");
-                        break;
-                    case "Shoujo":
-                        b.setToolTipText("A demographic aimed at teenage girls; often features romance and characters with large eyes and is the counterpart of shounen.");
-                        break;
-                    case "Shounen":
-                        b.setToolTipText("A demographic aimed at teenage boys that often features action; the counterpart of shoujo");
-                        break;
-                    case "Slice of Life":
-                        b.setToolTipText("Refers to events that occur on a daily basis.  Events differ depending on setting, but above all else are ordinary, everyday actions that don’t always follow a central plot");
-                        break;
-                    case "Space":
-                        b.setToolTipText("These anime take place in the depths of space: from planets in the outermost reaches of the galaxy, to space stations in orbit around Earth, or anything in between");
-                        break;
-                    case "Sports":
-                        b.setToolTipText("These anime delve into the world of competitive Sports, ranging from team-based to individual participants.; focuses on athletes and their progression in skill.");
-                        break;
-                    case "Super Power":
-                        b.setToolTipText("Superpowers are special abilities that the majority of modern humans do not possess.  These anime often focus on combat between these individuals or against outside threats");
-                        break;
-                    case "Supernatural":
-                        b.setToolTipText("Supernatural events are those modern science has difficulty explaining; often steeped in folklore, myth, urban legend, or other inexplicable phenomena.  ");
-                        break;
-                    case "Thriller":
-                        b.setToolTipText("Thrillers are characterized by tension. These anime typically set up a complex story with a variety of dangerous elements, plot twists, and possible outcomes.");
-                        break;
+                    case "Action" -> b.setToolTipText("A popular genre that features conflict in the form of guns, blades, fists, mysterious powers, etc that is displayed with visually stunning fight animation.");
+                    case "Adventure" -> b.setToolTipText("A genre where characters embark on a journey to explore the world or to search for something, oftentimes meeting new people, encountering hardships, and discovering about themselves along the way");
+                    case "Comedy" -> b.setToolTipText("A genre of fiction that features jokes, misunderstandings, and humorous situations intended to make an audience laugh.");
+                    case "Demons" -> b.setToolTipText("A genre where demons, the embodiment or evil and the worst fears of humanity, are main characters in the story.  These demons may depicted in humorous contexts and may not adhere to their standard trope");
+                    case "Drama" -> b.setToolTipText("As what “drama” connotes, it's something that is able to touch hearts and make feelings and emotions flow; they are also called tear-jerkers, feels-trains, and onion peelers among other names.");
+                    case "Ecchi" -> b.setToolTipText("A genre filled with sexual humor that arises due to romance or disunderstanding; typically aimed as teenage boys");
+                    case "Fantasy" -> b.setToolTipText("A genre that contains a multitude of fantastical elements such as magic, supernatural elements, and mysterious creatures that are depicted in mythology or folk tales; often set in distant or imaginary world.");
+                    case "Game" -> b.setToolTipText("A genre that focuses on various types of fames across many different genres; these games are often strategy based.");
+                    case "Harem" -> b.setToolTipText("A genre in which the main character has more than 2 romantic interests who actively pursue him/her.");
+                    case "Historical" -> b.setToolTipText("Set in a time period in Earth's past. The level of dedication to portraying the lifestyles, societies, and technologies of past periods and peoples accurately or believably can vary between different works.");
+                    case "Horror" -> b.setToolTipText("Horror anime create an atmosphere of unease.  Through eerie music and sounds, visceral or disturbing imagery, or startling moments, works of Horror make you worry about what gruesome thing is coming next.");
+                    case "Magic" -> b.setToolTipText("Magic is the use of some kind of supernatural power. Characters in Magic anime tend to go by titles such as witch, wizard, or mage and are occupied with learning to harness these abilities or fighting other magic users.");
+                    case "Martial Arts" -> b.setToolTipText("Martial arts are techniques that heavily involve training and are steeped in tradition. These techniques can have varied applications such as self-defense, psychological health or advanced use of weaponry, amongst others.");
+                    case "Military" -> b.setToolTipText("These anime have a strong military presence, be it on a national or intergalactic level, or showcase characters that are in the military.\n");
+                    case "Music" -> b.setToolTipText("These anime are all about the appreciation or performance of music, no matter the genre, or the skill level any musicians involved. Music lives in the soul of these characters!");
+                    case "Mystery" -> b.setToolTipText("Focuses on unresolved questions and efforts to answer them. Whether curious and deadly events are afoot, a strange or inexplicable world appears, etc, these characters are set on learning the truth.");
+                    case "Parody" -> b.setToolTipText("These anime imitate well known genres, styles or characters in an exaggerated, comedic manner to poke fun at them.");
+                    case "Police" -> b.setToolTipText("Police forces are responsible for upholding the justice of their nation and/or community. These anime follow uniformed men and women as they carry out their duties.");
+                    case "Psychological" -> b.setToolTipText("Psychological anime delve into mental or emotional states of a character in the midst of a difficult situation, letting you observe them change as tension increases.");
+                    case "Romance" -> b.setToolTipText("These anime showcase the joys and hardships of falling in love.  ");
+                    case "Samurai" -> b.setToolTipText("Samurai follow bushido, the classical Japanese warrior code, as a way of life, and hone their skill in combat to make their way in the world or perfect themselves.");
+                    case "School" -> b.setToolTipText("These anime showcase events that occur on a daily basis in a school, whether from the perspective of a student or of a teacher: friendships, fun, clubs, and all.");
+                    case "Sci-Fi" -> b.setToolTipText("Sci-fi, or science fiction, is a speculative genre which builds on imagination.  The genre commonly features humanity's inquisitiveness and innovation.");
+                    case "Seinen" -> b.setToolTipText("Seinen anime tends to be of a more violent and/or psychological nature than shounen series; aimed at young men");
+                    case "Shoujo" -> b.setToolTipText("A demographic aimed at teenage girls; often features romance and characters with large eyes and is the counterpart of shounen.");
+                    case "Shounen" -> b.setToolTipText("A demographic aimed at teenage boys that often features action; the counterpart of shoujo");
+                    case "Slice of Life" -> b.setToolTipText("Refers to events that occur on a daily basis.  Events differ depending on setting, but above all else are ordinary, everyday actions that don’t always follow a central plot");
+                    case "Space" -> b.setToolTipText("These anime take place in the depths of space: from planets in the outermost reaches of the galaxy, to space stations in orbit around Earth, or anything in between");
+                    case "Sports" -> b.setToolTipText("These anime delve into the world of competitive Sports, ranging from team-based to individual participants.; focuses on athletes and their progression in skill.");
+                    case "Super Power" -> b.setToolTipText("Superpowers are special abilities that the majority of modern humans do not possess.  These anime often focus on combat between these individuals or against outside threats");
+                    case "Supernatural" -> b.setToolTipText("Supernatural events are those modern science has difficulty explaining; often steeped in folklore, myth, urban legend, or other inexplicable phenomena.  ");
+                    case "Thriller" -> b.setToolTipText("Thrillers are characterized by tension. These anime typically set up a complex story with a variety of dangerous elements, plot twists, and possible outcomes.");
                 }
 
                 b.addActionListener(e2 -> {
@@ -733,7 +768,10 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             titleBar = "Alphabetized List of Anime";
         } else if (type.equals("MAL")) {
             titleBar = "Top 10 Anime by MyAnimeList Rating";
+        } else if (type.equals("GENRE")) {
+            titleBar = "Genre Search with Genres: " + searchedWord;
         }
+
         JFrame searchResults = new JFrame(titleBar);
         searchResults.setSize(600, 550);
         searchResults.setVisible(true);
