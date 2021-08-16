@@ -81,7 +81,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             }
 
             BufferedReader bf = new BufferedReader(new FileReader("summaryFile.txt"));
-            String summaryLine = b.readLine();
+            String summaryLine = bf.readLine();
             int x = 0;
             while(summaryLine != null) {
                 list.get(x++).setSummary(summaryLine);
@@ -786,7 +786,7 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             first.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
 
             JPanel second = new JPanel(new GridLayout(1, 2));
-            second.setPreferredSize(new Dimension(550, 350));
+            second.setPreferredSize(new Dimension(550, 400));
             second.setBackground(Color.WHITE);
             second.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
 
@@ -794,12 +794,12 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             JPanel leftPanel = new JPanel(); // panel for left side contents
             leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
             leftPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            leftPanel.setPreferredSize(new Dimension(300, 350));
+            leftPanel.setPreferredSize(new Dimension(300, 400));
             leftPanel.setBackground(Color.WHITE);
 
             JPanel rightPanel = new JPanel(); // panel for right side contents
             rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-            rightPanel.setPreferredSize(new Dimension(250, 350));
+            rightPanel.setPreferredSize(new Dimension(250, 400));
             rightPanel.setBackground(Color.WHITE);
 
             // left side
@@ -830,21 +830,21 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             // right side
             // text that shows summary/synopsis
             JTextArea synopsis = new JTextArea("Summary: " + list.get(num).getSummary());
-            synopsis.setPreferredSize(new Dimension(250, 65));
+            synopsis.setPreferredSize(new Dimension(250, 180));
             synopsis.setLineWrap(true);
             synopsis.setWrapStyleWord(true);
             synopsis.setEditable(false);
-            synopsis.setFont(new Font("Serif", Font.BOLD, 14));
+            synopsis.setFont(new Font("Serif", Font.BOLD, 13));
 
             // text that shows genres
             String allGenres = "";
             allGenres = showAllGenres(list.get(num));
             JTextArea genres = new JTextArea(allGenres);
-            genres.setPreferredSize(new Dimension(250, 6));
+            genres.setPreferredSize(new Dimension(250, 20));
             genres.setLineWrap(true);
             genres.setWrapStyleWord(true);
             genres.setEditable(false);
-            genres.setFont(new Font("Serif", Font.BOLD, 14));
+            genres.setFont(new Font("Serif", Font.BOLD, 13));
 
             // text that shows MAL and PE rating
             JTextArea ratings = new JTextArea("MAL Rating: " + Arrays.toString(list.get(num).getMalRating()) + "\n" + "Personal Enjoyment Rating: " + list.get(num).getSeriesEnjoymentRating());
@@ -852,15 +852,26 @@ public class Bot extends Anime { // where the GUI is created and the user intera
             ratings.setLineWrap(true);
             ratings.setWrapStyleWord(true);
             ratings.setEditable(false);
-            ratings.setFont(new Font("Serif", Font.BOLD, 14));
+            ratings.setFont(new Font("Serif", Font.BOLD, 13));
 
             // text that shows filler episodes (if applicable)
-            JTextArea filler = new JTextArea("Filler: " + list.get(num).getFillerEpisodes());
+            String smallFiller = "";
+            String extra = "";
+            if (list.get(num).getFillerEpisodes().length() > 156) {
+                smallFiller = list.get(num).getFillerEpisodes().substring(0, 156);
+                extra = list.get(num).getFillerEpisodes().substring(156);
+            } else {
+                smallFiller = list.get(num).getFillerEpisodes();
+            }
+            JTextArea filler = new JTextArea("Filler: " + smallFiller);
+            if (!extra.equals("")) {
+                filler.setToolTipText(extra);
+            }
             filler.setPreferredSize(new Dimension(250, 50));
             filler.setLineWrap(true);
             filler.setWrapStyleWord(true);
             filler.setEditable(false);
-            filler.setFont(new Font("Serif", Font.BOLD, 14));
+            filler.setFont(new Font("Serif", Font.BOLD, 13));
 
             // buttons to send user to webpage
             JPanel buttonPanel = new JPanel();
