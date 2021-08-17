@@ -440,9 +440,13 @@ public class Bot extends Anime { // where the GUI is created and the user intera
                 }
             }
 
-            genreSelection.dispose();
-            showAnimePanel(searchResults, allGenres, openingPage, false, "GENRE");
+            if (searchResults.size() > 0) {
+                genreSelection.dispose();
+                showAnimePanel(searchResults, allGenres, openingPage, false, "GENRE");
+            } else {
+                JOptionPane.showMessageDialog(null, "There are no anime with you selected genres.  Please clear your search and try again!", "No anime found!", JOptionPane.ERROR_MESSAGE);
 
+            }
         });
 
         rightMiddlePanel.add(throwaway);
