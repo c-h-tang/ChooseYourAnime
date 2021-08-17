@@ -4,7 +4,8 @@ As of early 2021, there has been a 50% increase in wordlwide anime watchers due 
 The program displays basic information such as the number of episodes, seasons, movies, and filler episodes for each anime series as well as can direct users to watching portals or a MyAnimeList, or MAL, page for more information and community discussion.  Furthermore, users can search for animes through titles (English or Japanese Romaji), genres, or by rating.  As of August 2021, there are 71 animes to be selected from.
 
 ## Installation
-ChooseYourAnime can be accessed via the command line by following the steps laid out here: https://www.instructables.com/Downloading-Code-From-GitHub/
+ChooseYourAnime can be accessed via downloading and the command line by following the steps laid out here: https://www.instructables.com/Downloading-Code-From-GitHub/
+
 ChooseYourAnime can be accessed via cloning this repository by following the steps laid out here: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository
 ## Usage
 There are many features in Choose Your Anime that will be explained in detail in the subsections below.
