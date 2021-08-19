@@ -7,6 +7,8 @@ The program displays basic information such as the number of episodes, seasons, 
 ChooseYourAnime can be accessed via downloading and the command line by following the steps laid out here: https://www.instructables.com/Downloading-Code-From-GitHub/
 
 ChooseYourAnime can be accessed via cloning this repository by following the steps laid out here: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository
+
+To run the program, navigate to Bot.java and run the main method.
 ## Usage
 There are many features in Choose Your Anime that will be explained in detail in the subsections below.
 
